@@ -83,23 +83,23 @@ export const SystemStatus: React.FC = () => {
   }, []);
 
   return (
-    <div className="absolute top-4 right-0 md:-right-12 hidden sm:flex items-center space-x-3 glass-card px-5 py-3.5 rounded-2xl shadow-2xl transition-all hover:translate-x-1 group cursor-default z-30">
+    <div className="absolute -top-3 right-0 sm:right-2 md:-right-12 flex items-center space-x-2.5 sm:space-x-3 glass-card px-3.5 py-2 sm:px-5 sm:py-3.5 rounded-xl sm:rounded-2xl shadow-2xl transition-all hover:translate-x-1 group cursor-default z-30 scale-[0.88] sm:scale-100 origin-top-right">
       <div className="relative">
         <div className={`w-2.5 h-2.5 rounded-full animate-ping absolute inset-0 opacity-60 ${isOnline ? 'bg-emerald-500' : 'bg-red-500'}`}></div>
         <div className={`w-2.5 h-2.5 rounded-full relative border-[1.5px] border-white dark:border-slate-900 ${isOnline ? 'bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-red-400 shadow-[0_0_10px_rgba(239,68,68,0.5)]'}`}></div>
       </div>
       <div className="flex flex-col">
-        <span className="text-[7px] text-slate-500 dark:text-slate-400 font-bold tracking-[0.35em] uppercase leading-none mb-1">
+        <span className="text-[6.5px] sm:text-[7px] text-slate-500 dark:text-slate-400 font-bold tracking-[0.35em] uppercase leading-none mb-1">
           {network ? `Network: ${network}` : 'Infrastructure'}
         </span>
-        <span className="text-[10px] text-slate-900 dark:text-white font-bold tracking-[0.12em] uppercase leading-none">
+        <span className="text-[9px] sm:text-[10px] text-slate-900 dark:text-white font-bold tracking-[0.12em] uppercase leading-none">
           {isOnline ? 'System Online' : 'Offline'}
         </span>
       </div>
-      <div className="h-8 w-[1px] bg-gradient-to-b from-transparent via-purple-500/40 to-transparent"></div>
+      <div className="h-7 sm:h-8 w-[1px] bg-gradient-to-b from-transparent via-purple-500/40 to-transparent"></div>
       <div className="flex flex-col items-end">
-        <span className="text-[8px] font-mono text-slate-900 dark:text-white/80 tabular-nums tracking-wider">{time}</span>
-        <span className="text-[6px] font-mono text-slate-400 dark:text-slate-500 tracking-wider mt-0.5">UP {uptime}</span>
+        <span className="text-[7.5px] sm:text-[8px] font-mono text-slate-900 dark:text-white/80 tabular-nums tracking-wider">{time}</span>
+        <span className="text-[5.5px] sm:text-[6px] font-mono text-slate-400 dark:text-slate-500 tracking-wider mt-0.5">UP {uptime}</span>
       </div>
     </div>
   );

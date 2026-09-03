@@ -85,11 +85,11 @@ export const Home: React.FC<HomeProps> = ({ onBegin }) => {
       </div>
 
       {/* ── Right Visual / Hero Column ── */}
-      <div className="w-full lg:w-[45%] h-[320px] sm:h-[420px] lg:h-[85vh] flex items-center justify-center reveal-up relative my-6 lg:my-0" style={{ animationDelay: '0.3s', animationDuration: '1.5s' }}>
-        <div className="relative w-full max-w-lg aspect-square">
+      <div className="w-full lg:w-[45%] min-h-[380px] sm:min-h-[440px] lg:h-[85vh] flex items-center justify-center reveal-up relative mt-10 mb-8 lg:my-0" style={{ animationDelay: '0.3s', animationDuration: '1.5s' }}>
+        <div className="relative w-full max-w-[280px] sm:max-w-md lg:max-w-lg aspect-square">
           <PortraitHero />
         </div>
-        {/* Badges — positioned outside aspect-square to prevent overflow */}
+        {/* Badges — positioned with plenty of room */}
         <SystemStatus />
         <DynamicLatency />
       </div>
