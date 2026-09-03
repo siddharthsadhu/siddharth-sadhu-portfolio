@@ -171,16 +171,16 @@ const AudioWaveCanvas: React.FC = () => {
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const bars = 24;
-      const barWidth = 3;
-      const gap = 3;
+      const bars = 12;
+      const barWidth = 2.5;
+      const gap = 2.5;
       const totalWidth = bars * (barWidth + gap);
       const startX = (canvas.width - totalWidth) / 2;
 
       step += 0.05;
 
       for (let i = 0; i < bars; i++) {
-        const h = Math.abs(Math.sin(step + i * 0.28)) * 14 + 3;
+        const h = Math.abs(Math.sin(step + i * 0.28)) * 12 + 2;
         const x = startX + i * (barWidth + gap);
         const y = (canvas.height - h) / 2;
 
@@ -190,7 +190,7 @@ const AudioWaveCanvas: React.FC = () => {
 
         ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.roundRect(x, y, barWidth, h, 2);
+        ctx.roundRect(x, y, barWidth, h, 1.5);
         ctx.fill();
       }
 
@@ -201,7 +201,7 @@ const AudioWaveCanvas: React.FC = () => {
     return () => cancelAnimationFrame(frameId);
   }, []);
 
-  return <canvas ref={canvasRef} width={160} height={26} className="pointer-events-none opacity-80" />;
+  return <canvas ref={canvasRef} width={65} height={20} className="pointer-events-none opacity-80 shrink-0" />;
 };
 
 /* ── 3D Parallax Tilt Holographic ID Card (Zero Emojis) ── */
@@ -380,27 +380,27 @@ const SocialNode = ({
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    className="group relative flex items-center p-4 space-x-4 card-premium rounded-2xl border border-white/[0.06] hover:border-purple-500/40 bg-slate-900/40 hover:bg-slate-900/80 transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+    className="group relative flex items-center p-3.5 sm:p-4 space-x-3 sm:space-x-4 card-premium rounded-2xl border border-white/[0.06] hover:border-purple-500/40 bg-slate-900/40 hover:bg-slate-900/80 transition-all duration-300 hover:scale-[1.01] cursor-pointer w-full max-w-full overflow-hidden"
   >
-    <div className={`w-11 h-11 flex items-center justify-center rounded-xl bg-gradient-to-br ${accentColor} border border-white/10 group-hover:scale-110 transition-transform duration-300`}>
+    <div className={`w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center rounded-xl bg-gradient-to-br ${accentColor} border border-white/10 group-hover:scale-110 transition-transform duration-300 shrink-0`}>
       <div className="text-white">
         {icon}
       </div>
     </div>
 
     <div className="flex flex-col flex-grow min-w-0">
-      <div className="flex items-center space-x-2">
-        <span className="text-sm font-medium text-white group-hover:text-purple-300 transition-colors">
+      <div className="flex items-center space-x-2 min-w-0">
+        <span className="text-xs sm:text-sm font-medium text-white group-hover:text-purple-300 transition-colors truncate">
           {label}
         </span>
-        <span className="text-[8px] font-mono font-semibold px-2 py-0.2 rounded-full bg-white/[0.04] text-purple-300/80 border border-white/5">
+        <span className="text-[7.5px] sm:text-[8px] font-mono font-semibold px-2 py-0.2 rounded-full bg-white/[0.04] text-purple-300/80 border border-white/5 shrink-0">
           {tag}
         </span>
       </div>
-      <span className="text-xs font-mono text-slate-400 truncate mt-0.5">{handle}</span>
+      <span className="text-[11px] sm:text-xs font-mono text-slate-400 truncate mt-0.5">{handle}</span>
     </div>
 
-    <div className="w-8 h-8 flex items-center justify-center rounded-full bg-white/[0.03] group-hover:bg-purple-500/20 text-slate-400 group-hover:text-white transition-all transform group-hover:translate-x-1 duration-300">
+    <div className="w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-white/[0.03] group-hover:bg-purple-500/20 text-slate-400 group-hover:text-white transition-all transform group-hover:translate-x-0.5 duration-300 shrink-0">
       <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
       </svg>
@@ -519,7 +519,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-20 md:pt-36 md:pb-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
+    <div className="min-h-screen pt-28 pb-20 md:pt-36 md:pb-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-x-hidden animated-bg noise-overlay w-full max-w-full">
       {/* 3D Quantum Holographic Canvas in Background */}
       <QuantumSphereCanvas />
 
@@ -530,7 +530,7 @@ export const Contact: React.FC = () => {
       <div className="absolute top-20 left-1/4 w-96 h-96 bg-purple-500/6 rounded-full blur-[140px] pointer-events-none floating-shape" />
       <div className="absolute bottom-20 right-1/4 w-80 h-80 bg-indigo-500/6 rounded-full blur-[120px] pointer-events-none floating-shape" style={{ animationDelay: '5s' }} />
 
-      <div className="max-w-7xl mx-auto relative z-10 flex flex-col min-h-[calc(100vh-12rem)] space-y-16">
+      <div className="max-w-7xl mx-auto relative z-10 flex flex-col min-h-[calc(100vh-12rem)] space-y-12 sm:space-y-16 w-full max-w-full">
         {/* Header */}
         <div className="max-w-4xl reveal-up">
           <SectionHeader
@@ -540,7 +540,7 @@ export const Contact: React.FC = () => {
         </div>
 
         {/* ── Who I Vibe Best With (Why Connect) ── */}
-        <div className="space-y-6 reveal-up" style={{ animationDelay: '0.1s' }}>
+        <div className="space-y-6 reveal-up w-full max-w-full" style={{ animationDelay: '0.1s' }}>
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-white/5 pb-4">
             <div>
               <span className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-purple-400 block mb-1">
@@ -555,11 +555,11 @@ export const Contact: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
             {vibePillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className={`p-6 rounded-3xl border ${pillar.accent} card-premium flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] group`}
+                className={`p-5 sm:p-6 rounded-2xl sm:rounded-3xl border ${pillar.accent} card-premium flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] group w-full`}
               >
                 <div className="space-y-3">
                   <div className="w-10 h-10 rounded-2xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-purple-300 group-hover:scale-110 group-hover:text-white transition-all">
@@ -588,7 +588,7 @@ export const Contact: React.FC = () => {
         </div>
 
         {/* ── Main Two-Column Interactive Studio ── */}
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-8 lg:gap-10 items-start w-full max-w-full">
           {/* ── LEFT COLUMN: 3D Holographic Card & Collaboration Intent Engine ── */}
           <div className="space-y-8">
             {/* 3D Parallax Tilt VIP ID Card with Live Clock & Equalizer */}
