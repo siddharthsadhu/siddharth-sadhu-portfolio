@@ -261,6 +261,23 @@ export const HackathonsCertifications: React.FC = () => {
       learnings: 'My first-ever hackathon at 16. Learned rapid collaboration, MVP scoping, and how to build working prototypes under tight deadlines.',
       skills: ['Python', 'SpeechRecognition', 'PyAudio', 'OS Automation', 'HTML/CSS UI'],
       githubUrl: 'https://github.com/siddharthsadhu'
+    },
+
+    // ── 2021 ──
+    {
+      id: 'gseb-ssc',
+      year: '2021',
+      yearNum: 2021,
+      category: 'academic',
+      badge: '93% DISTINCTION',
+      badgeStyle: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      title: 'Secondary School Certificate (SSC 93%)',
+      subtitle: 'GSEB Board Distinction',
+      organization: 'GSEB Board, Gujarat',
+      date: '2019 – 2021',
+      scoreOrResult: '93.00% Distinction',
+      description: 'Top academic distinction in Mathematics and Science leading to selection into Diploma IT over traditional schooling.',
+      skills: ['Mathematics', 'Logical Reasoning', 'Analytical Thinking']
     }
   ];
 

@@ -29,6 +29,19 @@ export const ACADEMIC_HONORS_DATA: AcademicHonor[] = [
     description: "Consistent academic topper across all 6 semesters with deep mastery in Data Structures, Object-Oriented Java, Database Management Systems, and Microcontroller Systems.",
     skills: ["Data Structures & Algorithms", "Java & OOP", "DBMS & SQL", "Operating Systems", "Computer Networks"],
     certificateUrl: "/certificates/diploma-second-rank.pdf"
+  },
+  {
+    id: "gseb-ssc",
+    title: "Secondary School Certificate (SSC Distinction)",
+    degree: "Secondary School Education (GSEB)",
+    institution: "Gujarat Secondary and Higher Secondary Education Board",
+    year: "2019 – 2021",
+    score: "93.00%",
+    rank: "93% Distinction",
+    highlight: "Top distinction in Mathematics and Science leading to competitive admission into Diploma IT.",
+    badge: "93% DISTINCTION",
+    description: "Demonstrated strong foundational discipline in analytical problem-solving and mathematics in Nar Town, Anand District.",
+    skills: ["Mathematics", "Logical Reasoning", "Analytical Thinking"]
   }
 ];
 
