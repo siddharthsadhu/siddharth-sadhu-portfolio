@@ -12,7 +12,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, toggle }) => {
     <button 
       onClick={toggle}
       className="p-2 rounded-full border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 transition-all"
-      aria-label="Toggle Theme"
+      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
     >
       {theme === 'dark' ? (
         <svg className="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

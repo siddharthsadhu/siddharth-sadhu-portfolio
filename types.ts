@@ -42,6 +42,15 @@ export interface Project {
   redesignReflections: string;
   sections: ProjectSection[];
   githubUrl?: string;
+  image?: string;
+  gradient?: string;
+  architectureImage?: string;
+  liveDemoUrl?: string;
+  demoVideoUrl?: string;
+  presentationUrl?: string;
+  architectureFlow?: { step: string; title: string; desc: string; tech: string }[];
+  decisionMatrix?: { decision: string; choice: string; alternative: string; rationale: string; impact: string }[];
+  benchmarks?: { metric: string; target: string; achieved: string; status: string }[];
 }
 
 export interface Experience {
@@ -57,52 +66,6 @@ export interface Experience {
     decisions: string;
     learning: string;
   };
-}
-
-// Legacy JourneyNode - kept for reference
-export interface JourneyNode {
-  year: string;
-  role: string;
-  context: string;
-  constraint: string;
-  whatChanged: string;
-  whatWasLearned: string;
-  failure?: {
-    issue: string;
-    analysis: string;
-  };
-}
-
-// New Journey Timeline Types
-export interface JourneyMilestone {
-  title: string;
-  description: string;
-  type: 'achievement' | 'learning' | 'project' | 'hackathon' | 'certification';
-  icon?: string;
-  link?: string; // For hackathons/certs that link to deep dive
-}
-
-export interface JourneyYear {
-  year: string;
-  title: string;
-  subtitle?: string;
-  period?: string; // e.g., "2021 - 2024" for multi-year entries
-  isEducation?: boolean;
-  milestones: JourneyMilestone[];
-  hackathonPreviews?: HackathonPreview[];
-  certificationPreviews?: CertificationPreview[];
-}
-
-export interface HackathonPreview {
-  id: string;
-  name: string;
-  result?: string; // e.g., "1st Place", "Finalist"
-}
-
-export interface CertificationPreview {
-  id: string;
-  name: string;
-  platform: string;
 }
 
 // Hackathon & Certification Types
@@ -126,6 +89,21 @@ export interface Hackathon {
   certificateUrl?: string;
 }
 
+export interface AcademicHonor {
+  id: string;
+  title: string;
+  degree: string;
+  institution: string;
+  year: string;
+  score: string;
+  rank?: string;
+  highlight: string;
+  badge: string;
+  description: string;
+  skills: string[];
+  certificateUrl?: string;
+}
+
 export interface Certification {
   id: string;
   name: string;
@@ -138,4 +116,30 @@ export interface Certification {
   description: string;
   level?: 'Beginner' | 'Intermediate' | 'Advanced' | 'Expert';
   logoUrl?: string;
+}
+
+export type SkillCategory = 'ai_ml' | 'fullstack' | 'backend_data' | 'systems_core';
+export type RecruiterRole = 'all' | 'ai_ml' | 'fullstack' | 'backend' | 'systems';
+
+export interface SkillItem {
+  name: string;
+  category: SkillCategory;
+  proficiency: number; // 0 - 100
+  level: 'Expert' | 'Advanced' | 'Proficient';
+  icon?: string;
+  context: string; // Real-world usage context
+  project?: string; // Linked project name
+  projectId?: string; // e.g. 'saral-ai'
+  roles: ('ai_ml' | 'fullstack' | 'backend' | 'systems')[];
+}
+
+export interface SkillDomain {
+  id: SkillCategory;
+  title: string;
+  subtitle: string;
+  icon: string;
+  gradient: string;
+  badgeColor: string;
+  borderColor: string;
+  skills: SkillItem[];
 }

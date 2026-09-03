@@ -1,306 +1,564 @@
-
 import React, { useState } from 'react';
 import { SectionHeader } from '../components/SectionHeader';
-import { HACKATHONS_DATA, CERTIFICATIONS_DATA } from '../data';
-import { Hackathon, Certification } from '../types';
 
-const HackathonCard: React.FC<{ hackathon: Hackathon; index: number }> = ({ hackathon, index }) => {
-     const [isExpanded, setIsExpanded] = useState(false);
+type FilterCategory = 'all' | 'podiums' | 'academic' | 'certifications' | 'hackathons';
 
-     const resultColors: Record<string, string> = {
-          '1st Place': 'from-amber-500 to-yellow-500 text-white',
-          'Winner': 'from-amber-500 to-yellow-500 text-white',
-          'Winner - Software Edition': 'from-amber-500 to-yellow-500 text-white',
-          '2nd Place': 'from-slate-400 to-slate-500 text-white',
-          'Finalist': 'from-purple-500 to-indigo-500 text-white',
-          'Finalist - Top 10': 'from-purple-500 to-indigo-500 text-white',
-     };
-
-     return (
-          <div
-               className="reveal-up"
-               style={{ animationDelay: `${index * 0.1}s` }}
-          >
-               <div className="group p-8 bg-white/60 dark:bg-white/[0.02] backdrop-blur-xl border border-slate-200/50 dark:border-white/5 rounded-3xl hover:border-amber-300/50 dark:hover:border-amber-500/30 hover:shadow-[0_20px_60px_rgba(245,158,11,0.1)] transition-all duration-500 hover-glow">
-                    {/* Header */}
-                    <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-6">
-                         <div className="flex-grow">
-                              <div className="flex items-center space-x-3 mb-2">
-                                   <span className={`px-3 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full bg-gradient-to-r ${resultColors[hackathon.result] || 'from-slate-500 to-slate-600 text-white'}`}>
-                                        {hackathon.result}
-                                   </span>
-                                   {hackathon.prize && (
-                                        <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400">
-                                             {hackathon.prize}
-                                        </span>
-                                   )}
-                              </div>
-                              <h3 className="text-2xl font-light text-slate-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
-                                   {hackathon.name}
-                              </h3>
-                              <div className="flex flex-wrap items-center gap-4 mt-2 text-sm text-slate-500">
-                                   <span className="flex items-center space-x-1">
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                        </svg>
-                                        <span>{hackathon.date}</span>
-                                   </span>
-                                   <span className="flex items-center space-x-1">
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        </svg>
-                                        <span>{hackathon.location}</span>
-                                   </span>
-                                   <span className="flex items-center space-x-1">
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                        </svg>
-                                        <span>{hackathon.duration}</span>
-                                   </span>
-                                   <span className="flex items-center space-x-1">
-                                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        </svg>
-                                        <span>Team of {hackathon.teamSize}</span>
-                                        {hackathon.teamName && <span className="text-amber-600 dark:text-amber-400">({hackathon.teamName})</span>}
-                                   </span>
-                              </div>
-                         </div>
-                    </div>
-
-                    {/* Project Info */}
-                    <div className="p-6 bg-gradient-to-r from-amber-500/5 to-orange-500/5 border border-amber-200/30 dark:border-amber-500/10 rounded-2xl mb-6">
-                         <h4 className="text-lg font-semibold text-amber-700 dark:text-amber-300 mb-2">{hackathon.projectName}</h4>
-                         <p className="text-slate-700 dark:text-slate-300 leading-relaxed">{hackathon.projectDescription}</p>
-                    </div>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                         {hackathon.techStack.map((tech) => (
-                              <span key={tech} className="px-3 py-1.5 bg-white/70 dark:bg-white/5 border border-slate-200/50 dark:border-white/10 rounded-lg text-[10px] font-bold uppercase tracking-widest text-slate-600 dark:text-slate-400">
-                                   {tech}
-                              </span>
-                         ))}
-                    </div>
-
-                    {/* Expand Button */}
-                    <button
-                         onClick={() => setIsExpanded(!isExpanded)}
-                         className="flex items-center space-x-2 text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"
-                    >
-                         <span className="text-[10px] font-bold uppercase tracking-widest">{isExpanded ? 'Show Less' : 'View Details'}</span>
-                         <svg className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                         </svg>
-                    </button>
-
-                    {/* Expanded Details */}
-                    {isExpanded && (
-                         <div className="mt-6 pt-6 border-t border-slate-200/50 dark:border-white/5 space-y-6 animate-in fade-in slide-in-from-top-4 duration-300">
-                              <div>
-                                   <h5 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Problem Solved</h5>
-                                   <p className="text-slate-700 dark:text-slate-300">{hackathon.problemSolved}</p>
-                              </div>
-                              <div>
-                                   <h5 className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-2">Key Learnings</h5>
-                                   <p className="text-slate-700 dark:text-slate-300 italic">"{hackathon.learnings}"</p>
-                              </div>
-
-                              {/* Links */}
-                              <div className="flex flex-wrap gap-3">
-                                   {hackathon.githubUrl && (
-                                        <a href={hackathon.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform">
-                                             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.298 24 12c0-6.627-5.373-12-12-12z" /></svg>
-                                             <span>View Code</span>
-                                        </a>
-                                   )}
-                                   {hackathon.demoUrl && (
-                                        <a href={hackathon.demoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-transform">
-                                             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                                             <span>Live Demo</span>
-                                        </a>
-                                   )}
-                              </div>
-                         </div>
-                    )}
-               </div>
-          </div>
-     );
-};
-
-const CertificationCard: React.FC<{ cert: Certification; index: number }> = ({ cert, index }) => {
-     const levelColors: Record<string, string> = {
-          'Beginner': 'bg-blue-500/20 text-blue-600 dark:text-blue-400 border-blue-300/30',
-          'Intermediate': 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-300/30',
-          'Advanced': 'bg-purple-500/20 text-purple-600 dark:text-purple-400 border-purple-300/30',
-          'Expert': 'bg-amber-500/20 text-amber-600 dark:text-amber-400 border-amber-300/30',
-     };
-
-     return (
-          <div
-               className="reveal-up"
-               style={{ animationDelay: `${index * 0.1}s` }}
-          >
-               <div className="group p-6 bg-white/60 dark:bg-white/[0.02] backdrop-blur-xl border border-slate-200/50 dark:border-white/5 rounded-2xl hover:border-emerald-300/50 dark:hover:border-emerald-500/30 hover:shadow-[0_15px_40px_rgba(16,185,129,0.1)] transition-all duration-500 hover-glow h-full flex flex-col">
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                         <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-300/30 dark:border-emerald-500/20">
-                              <svg className="w-6 h-6 text-emerald-600 dark:text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                              </svg>
-                         </div>
-                         {cert.level && (
-                              <span className={`px-2 py-1 text-[9px] font-bold uppercase tracking-widest rounded-lg border ${levelColors[cert.level]}`}>
-                                   {cert.level}
-                              </span>
-                         )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-grow">
-                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors mb-1">
-                              {cert.name}
-                         </h3>
-                         <p className="text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-3">{cert.platform}</p>
-                         <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-4">{cert.description}</p>
-
-                         {/* Skills */}
-                         <div className="flex flex-wrap gap-1.5 mb-4">
-                              {cert.skills.slice(0, 4).map((skill) => (
-                                   <span key={skill} className="px-2 py-1 bg-slate-100/50 dark:bg-white/5 rounded-md text-[9px] font-medium text-slate-600 dark:text-slate-400">
-                                        {skill}
-                                   </span>
-                              ))}
-                              {cert.skills.length > 4 && (
-                                   <span className="px-2 py-1 text-[9px] font-medium text-slate-500">+{cert.skills.length - 4} more</span>
-                              )}
-                         </div>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="pt-4 border-t border-slate-200/50 dark:border-white/5">
-                         <div className="flex items-center justify-between">
-                              <div className="text-[10px] text-slate-500">
-                                   <span>Issued: {cert.issueDate}</span>
-                                   {cert.expiryDate && <span className="ml-2">• Expires: {cert.expiryDate}</span>}
-                              </div>
-                              {cert.verificationUrl && (
-                                   <a
-                                        href={cert.verificationUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center space-x-1 text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors"
-                                   >
-                                        <span className="text-[10px] font-bold uppercase tracking-widest">Verify</span>
-                                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                   </a>
-                              )}
-                         </div>
-                    </div>
-               </div>
-          </div>
-     );
-};
+interface TimelineAchievement {
+  id: string;
+  year: string;
+  yearNum: number;
+  category: 'podiums' | 'academic' | 'certifications' | 'hackathons';
+  badge: string;
+  badgeStyle: string;
+  title: string;
+  subtitle: string;
+  organization: string;
+  date: string;
+  scoreOrResult?: string;
+  description: string;
+  problemSolved?: string;
+  learnings?: string;
+  skills: string[];
+  githubUrl?: string;
+  verificationUrl?: string;
+  certificateUrl?: string;
+  certificateLabel?: string;
+}
 
 export const HackathonsCertifications: React.FC = () => {
-     const [activeTab, setActiveTab] = useState<'hackathons' | 'certifications'>('hackathons');
+  const [activeFilter, setActiveFilter] = useState<FilterCategory>('all');
+  const [expandedCards, setExpandedCards] = useState<Record<string, boolean>>({
+    'vleid-ai-research': true,
+    'creato-2024': true,
+    'ssip-grant-2024': true,
+    'diploma-it-gtu': true
+  });
 
-     return (
-          <div className="min-h-screen py-24 px-8 md:px-24 relative overflow-hidden animated-bg noise-overlay">
-               {/* Background Elements */}
-               <div className="absolute inset-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05] bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] [background-size:80px_80px] text-slate-900 dark:text-white"></div>
+  const toggleExpand = (id: string) => {
+    setExpandedCards((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
 
-               {/* Floating Decorative Elements */}
-               <div className="absolute top-32 left-20 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none floating-shape"></div>
-               <div className="absolute bottom-40 right-10 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none floating-shape" style={{ animationDelay: '5s' }}></div>
+  // Compile all achievements into a single unified chronological timeline list
+  const allAchievements: TimelineAchievement[] = [
+    // ── 2026 ──
+    {
+      id: 'vleid-ai-research',
+      year: '2026',
+      yearNum: 2026,
+      category: 'certifications',
+      badge: 'OPEN SOURCE CONTRIBUTION',
+      badgeStyle: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      title: 'AI & Learning Systems Engineering',
+      subtitle: 'Open Source Research Contribution • Merged PR #69',
+      organization: 'Vicharanam Labs (VLEID) / IIT Ropar',
+      date: 'July 2026',
+      scoreOrResult: 'Merged PR #69',
+      description: 'Open source engineering contribution validating scenario & case study generation pipelines in PyBe, CKLIS pedagogical reasoning, Server-Sent Events (SSE) streaming, and merged PR #69.',
+      problemSolved: 'Low-latency AI response streaming and constructivist pedagogical scaffolding for real-world code learners.',
+      learnings: 'Engineered sub-100ms SSE token streaming under IIT Ropar mentorship with production open-source code reviews.',
+      skills: ['CKLIS Architecture', 'Server-Sent Events (SSE)', 'Prompt Chains', 'TypeScript', 'Node.js'],
+      certificateUrl: 'https://github.com/vicharanashala/pybe/pull/69',
+      certificateLabel: 'View Merged PR #69'
+    },
+    {
+      id: 'btech-ict-adani',
+      year: '2026',
+      yearNum: 2026,
+      category: 'academic',
+      badge: 'ACADEMIC DISTINCTION',
+      badgeStyle: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30',
+      title: 'B.Tech in Information & Communication Technology',
+      subtitle: 'Adani University (Pursuing Final Year)',
+      organization: 'Adani University, Ahmedabad',
+      date: '2024 – 2027',
+      scoreOrResult: '8.88 CGPA',
+      description: 'Rigorous coursework in Advanced AI Architectures, Machine Learning Systems, Distributed Systems, and High-Performance Cloud Computing.',
+      skills: ['AI/ML Pipelines', 'Distributed Systems', 'Software Architecture', 'Advanced Algorithms', 'Cloud Engineering']
+    },
 
-               {/* Accent Lines */}
-               <div className="absolute top-0 left-1/4 w-[1px] h-96 bg-gradient-to-b from-amber-500/20 via-amber-500/5 to-transparent pointer-events-none"></div>
-               <div className="absolute bottom-0 right-1/3 w-[1px] h-64 bg-gradient-to-t from-emerald-500/15 via-emerald-500/5 to-transparent pointer-events-none"></div>
+    // ── 2025 ──
+    {
+      id: 'yuva-ai-indiaai',
+      year: '2025',
+      yearNum: 2025,
+      category: 'certifications',
+      badge: 'NATIONAL AI CREDENTIAL',
+      badgeStyle: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30',
+      title: 'Yuva AI for All — FutureSkills Prime',
+      subtitle: 'Government of India AI Literacy Program',
+      organization: 'IndiaAI & NASSCOM (MeitY Endorsed)',
+      date: 'December 2025',
+      scoreOrResult: 'MeitY Endorsed',
+      description: 'National AI literacy certification endorsed by the Ministry of Electronics and IT (MeitY) and NASSCOM covering Indic NLP and AI foundations.',
+      skills: ['Generative AI', 'Responsible AI', 'Indic NLP', 'AI Ethics', 'Machine Learning Foundations'],
+      certificateUrl: '/certificates/yuva-ai-indiaai.pdf',
+      certificateLabel: 'Certificate'
+    },
+    {
+      id: 'deloitte-data-analytics',
+      year: '2025',
+      yearNum: 2025,
+      category: 'certifications',
+      badge: 'ENTERPRISE ANALYTICS',
+      badgeStyle: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30',
+      title: 'Data Analytics Virtual Experience Program',
+      subtitle: 'Enterprise Telemetry & Forensic Data Simulation',
+      organization: 'Deloitte & Forage',
+      date: 'December 2025',
+      scoreOrResult: 'Verified',
+      description: 'Practical simulation on real-world enterprise telemetry, anomaly detection, statistical modeling, and Tableau business intelligence.',
+      skills: ['Data Analytics', 'Forensic Data Analysis', 'Tableau', 'Statistical Modeling', 'Business Intelligence'],
+      certificateUrl: '/certificates/deloitte-analytics.pdf',
+      certificateLabel: 'Certificate'
+    },
+    {
+      id: 'ibm-prompt-engineering',
+      year: '2025',
+      yearNum: 2025,
+      category: 'certifications',
+      badge: 'PROMPT ENGINEERING',
+      badgeStyle: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      title: 'Cognitive Prompt Engineering Certification',
+      subtitle: 'IBM & Cognitive Class AI Specialization',
+      organization: 'IBM / Cognitive Class',
+      date: 'December 2025',
+      scoreOrResult: 'IBM Certified',
+      description: 'Specialized certification in cognitive prompt engineering patterns, context window optimization, and AI inference control.',
+      skills: ['Prompt Engineering', 'LLM Fine-Tuning', 'Context Scaffolding', 'Inference Control'],
+      certificateUrl: '/certificates/ibm-prompt-engineering.pdf',
+      certificateLabel: 'Certificate'
+    },
 
-               <div className="max-w-6xl mx-auto relative z-10">
-                    <div className="reveal-up">
-                         <SectionHeader
-                              title="Hackathons & Certifications"
-                              subtitle="Competitive achievements and validated expertise that demonstrate continuous growth."
-                         />
-                    </div>
+    // ── 2024 ──
+    {
+      id: 'creato-2024',
+      year: '2024',
+      yearNum: 2024,
+      category: 'podiums',
+      badge: 'STATE PODIUM (3RD)',
+      badgeStyle: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+      title: 'CREATO 2024 State-Level Project Competition',
+      subtitle: 'Smart Assistive Glasses for Visually Impaired',
+      organization: 'State Innovation Forum, Gujarat',
+      date: 'April 2024',
+      scoreOrResult: '3rd Place Trophy',
+      description: 'Wearable obstacle-detection glasses designed for visually impaired individuals, utilizing ultrasonic spatial echo timing and audio-haptic feedback.',
+      problemSolved: 'Preventing upper-body and head-height collisions in the blind spot of traditional mobility canes.',
+      learnings: 'Demonstrated live hardware before state jury panels. Learned the importance of robustness, zero-latency response, and ergonomic wearable design.',
+      skills: ['Embedded C++', 'Arduino', 'ESP32', 'HC-SR04', 'PWM Audio Drivers'],
+      githubUrl: 'https://github.com/siddharthsadhu',
+      certificateUrl: '/certificates/creato-3rd-place.pdf',
+      certificateLabel: 'State Certificate'
+    },
+    {
+      id: 'ssip-grant-2024',
+      year: '2024',
+      yearNum: 2024,
+      category: 'podiums',
+      badge: 'GOVT INNOVATION GRANT',
+      badgeStyle: 'bg-amber-500/10 text-amber-300 border-amber-500/30',
+      title: 'Student Startup & Innovation Policy (SSIP)',
+      subtitle: 'Government of Gujarat Innovation Grant',
+      organization: 'Government of Gujarat',
+      date: '2023 – 2024',
+      scoreOrResult: 'Grant Winner',
+      description: 'Government-funded innovation prototype delivering low-cost, real-time spatial awareness and navigation assistance for the visually challenged.',
+      problemSolved: 'Affordable, lightweight assistive technology accessible to underserved rural communities.',
+      learnings: 'Defended technical architecture before government evaluators; gained hands-on experience in budgeting, PCB prototyping, and user trials.',
+      skills: ['Microcontroller Firmware', 'Sensors', 'Hardware Prototyping', 'Power Optimization'],
+      githubUrl: 'https://github.com/siddharthsadhu'
+    },
+    {
+      id: 'diploma-it-gtu',
+      year: '2024',
+      yearNum: 2024,
+      category: 'academic',
+      badge: 'DEPARTMENT 2ND RANK',
+      badgeStyle: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      title: '2nd Rank in Diploma IT (9.73 CGPA)',
+      subtitle: 'B & B Institute of Technology, Vallabh Vidyanagar',
+      organization: 'B & B Institute of Technology',
+      date: '2021 – 2024',
+      scoreOrResult: '9.73 CGPA (Rank #2)',
+      description: 'Consistent academic topper across all 6 semesters with deep mastery in Data Structures, Object-Oriented Java, Database Management Systems, and Microcontroller Systems.',
+      skills: ['Data Structures & Algorithms', 'Java & OOP', 'DBMS & SQL', 'Operating Systems', 'Computer Networks'],
+      certificateUrl: '/certificates/diploma-second-rank.pdf',
+      certificateLabel: 'Rank Certificate'
+    },
+    {
+      id: 'adit-hackathon-2024',
+      year: '2024',
+      yearNum: 2024,
+      category: 'hackathons',
+      badge: 'HACKATHON BUILD',
+      badgeStyle: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      title: 'ADIT TechFest Hackathon (March 2024)',
+      subtitle: 'ADIT Institute of Technology',
+      organization: 'ADIT, New Vallabh Vidyanagar',
+      date: 'March 2024',
+      scoreOrResult: 'Participated',
+      description: 'Collaborative rapid software prototype built during the 36-hour ADIT regional hackathon sprint.',
+      skills: ['Web Engineering', 'Rapid Prototyping', 'API Integration'],
+      certificateUrl: '/certificates/adit-hackathon.pdf',
+      certificateLabel: 'Certificate'
+    },
 
-                    {/* Tab Switcher */}
-                    <div className="flex items-center justify-center mt-8 mb-12 reveal-up" style={{ animationDelay: '0.1s' }}>
-                         <div className="flex items-center p-1.5 bg-white/50 dark:bg-white/[0.03] backdrop-blur-xl rounded-full border border-slate-200/50 dark:border-white/10 shadow-lg">
-                              <button
-                                   onClick={() => setActiveTab('hackathons')}
-                                   className={`flex items-center space-x-2 px-8 py-3 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-300 ${activeTab === 'hackathons' ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
-                              >
-                                   <span>🏆</span>
-                                   <span>Hackathons ({HACKATHONS_DATA.length})</span>
-                              </button>
-                              <button
-                                   onClick={() => setActiveTab('certifications')}
-                                   className={`flex items-center space-x-2 px-8 py-3 rounded-full text-[10px] font-bold tracking-widest uppercase transition-all duration-300 ${activeTab === 'certifications' ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-500/30' : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'}`}
-                              >
-                                   <span>📜</span>
-                                   <span>Certifications ({CERTIFICATIONS_DATA.length})</span>
-                              </button>
-                         </div>
-                    </div>
+    // ── 2023 ──
+    {
+      id: 'sih-agripredict',
+      year: '2023',
+      yearNum: 2023,
+      category: 'hackathons',
+      badge: 'NATIONAL FINALIST',
+      badgeStyle: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      title: 'Smart India Hackathon (SIH) — AgroPredict',
+      subtitle: 'National Machine Learning Hackathon',
+      organization: 'Smart India Hackathon (National Edition)',
+      date: '2023',
+      scoreOrResult: 'Top 10 Finalist',
+      description: 'Machine learning crop disease prediction and weather anomaly alerting system providing actionable remedies to farmers.',
+      problemSolved: 'Early crop disease detection to minimize agricultural yield loss for smallholder farmers.',
+      learnings: 'Bridged complex computer vision pipelines with low-bandwidth regional interfaces tailored for real-world farming constraints.',
+      skills: ['Python', 'TensorFlow', 'React.js', 'Flask', 'PostgreSQL'],
+      githubUrl: 'https://github.com/siddharthsadhu'
+    },
 
-                    {/* Hackathons Section */}
-                    {activeTab === 'hackathons' && (
-                         <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
-                              {/* Stats */}
-                              <div className="flex flex-wrap gap-4 mb-8">
-                                   <div className="px-5 py-3 bg-gradient-to-r from-amber-500/10 to-orange-500/5 border border-amber-300/30 dark:border-amber-500/20 rounded-xl">
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">Total Participated</span>
-                                        <span className="text-2xl font-light gradient-text ml-3">{HACKATHONS_DATA.length}</span>
-                                   </div>
-                                   <div className="px-5 py-3 bg-gradient-to-r from-amber-500/10 to-orange-500/5 border border-amber-300/30 dark:border-amber-500/20 rounded-xl">
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-amber-600 dark:text-amber-400">Wins</span>
-                                        <span className="text-2xl font-light gradient-text ml-3">{HACKATHONS_DATA.filter(h => h.result.includes('1st') || h.result.includes('Winner')).length}</span>
-                                   </div>
-                              </div>
+    // ── 2022 ──
+    {
+      id: 'webial-summer-internship',
+      year: '2022',
+      yearNum: 2022,
+      category: 'certifications',
+      badge: 'WEB DEVELOPMENT',
+      badgeStyle: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30',
+      title: 'Summer Web Development Internship Certificate',
+      subtitle: 'Webial Technology Pvt. Ltd.',
+      organization: 'Webial Technology Pvt. Ltd.',
+      date: 'September 2022',
+      scoreOrResult: 'Completed at 16',
+      description: 'Commercial web development internship certification completed at age 16 for production client frontends.',
+      skills: ['JavaScript (ES6+)', 'HTML5/CSS3', 'DOM Optimization', 'Client Modules'],
+      certificateUrl: '/certificates/webial-internship.pdf',
+      certificateLabel: 'Certificate'
+    },
+    {
+      id: 'jarvis-hackathon-2022',
+      year: '2022',
+      yearNum: 2022,
+      category: 'hackathons',
+      badge: 'TECHFEST FINALIST',
+      badgeStyle: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
+      title: 'CVM College TechFest Hackathon (JARVIS)',
+      subtitle: 'Autonomous Speech Recognition Assistant',
+      organization: 'CVM University, Vallabh Vidyanagar',
+      date: '2022',
+      scoreOrResult: 'Finalist',
+      description: 'Voice-controlled automation and assistant tool built from scratch using Python speech recognition and custom script automation at age 16.',
+      problemSolved: 'Hands-free system automation and task management on local machines without heavy external dependencies.',
+      learnings: 'My first-ever hackathon at 16. Learned rapid collaboration, MVP scoping, and how to build working prototypes under tight deadlines.',
+      skills: ['Python', 'SpeechRecognition', 'PyAudio', 'OS Automation', 'HTML/CSS UI'],
+      githubUrl: 'https://github.com/siddharthsadhu'
+    },
 
-                              {/* Hackathon Cards */}
-                              {HACKATHONS_DATA.map((hackathon, index) => (
-                                   <HackathonCard key={hackathon.id} hackathon={hackathon} index={index} />
-                              ))}
-                         </div>
-                    )}
+    // ── 2021 ──
+    {
+      id: 'gseb-ssc',
+      year: '2021',
+      yearNum: 2021,
+      category: 'academic',
+      badge: '93% DISTINCTION',
+      badgeStyle: 'bg-purple-500/10 text-purple-300 border-purple-500/30',
+      title: 'Secondary School Certificate (SSC 93%)',
+      subtitle: 'GSEB Board Distinction',
+      organization: 'GSEB Board, Gujarat',
+      date: '2019 – 2021',
+      scoreOrResult: '93.00% Distinction',
+      description: 'Top academic distinction in Mathematics and Science leading to selection into Diploma IT over traditional schooling.',
+      skills: ['Mathematics', 'Logical Reasoning', 'Analytical Thinking'],
+      certificateUrl: '/certificates/ssc-marksheet.pdf',
+      certificateLabel: 'Marksheet'
+    }
+  ];
 
-                    {/* Certifications Section */}
-                    {activeTab === 'certifications' && (
-                         <div className="animate-in fade-in slide-in-from-right-4 duration-500">
-                              {/* Stats */}
-                              <div className="flex flex-wrap gap-4 mb-8">
-                                   <div className="px-5 py-3 bg-gradient-to-r from-emerald-500/10 to-teal-500/5 border border-emerald-300/30 dark:border-emerald-500/20 rounded-xl">
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Total Earned</span>
-                                        <span className="text-2xl font-light gradient-text ml-3">{CERTIFICATIONS_DATA.length}</span>
-                                   </div>
-                                   <div className="px-5 py-3 bg-gradient-to-r from-emerald-500/10 to-teal-500/5 border border-emerald-300/30 dark:border-emerald-500/20 rounded-xl">
-                                        <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">Active</span>
-                                        <span className="text-2xl font-light gradient-text ml-3">{CERTIFICATIONS_DATA.filter(c => !c.expiryDate || new Date(c.expiryDate) > new Date()).length}</span>
-                                   </div>
-                              </div>
+  // Filter achievements chronologically
+  const filteredAchievements = allAchievements.filter(
+    (item) => activeFilter === 'all' || item.category === activeFilter
+  );
 
-                              {/* Certification Cards Grid */}
-                              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                   {CERTIFICATIONS_DATA.map((cert, index) => (
-                                        <CertificationCard key={cert.id} cert={cert} index={index} />
-                                   ))}
-                              </div>
-                         </div>
-                    )}
+  const years = Array.from(new Set(filteredAchievements.map((item) => item.year))).sort(
+    (a, b) => parseInt(b) - parseInt(a)
+  );
 
-                    {/* Bottom decoration */}
-                    <div className="flex items-center justify-center mt-20 opacity-30">
-                         <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
-                         <div className="mx-4 w-2 h-2 bg-purple-500/50 rounded-full"></div>
-                         <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
-                    </div>
-               </div>
+  return (
+    <div className="min-h-screen py-24 px-6 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
+      {/* Laser Grid Background */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02] dark:opacity-[0.035] bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] [background-size:80px_80px] text-slate-900 dark:text-white"></div>
+
+      {/* Ambient Glow Orbs */}
+      <div className="absolute top-20 right-16 w-96 h-96 bg-purple-500/4 rounded-full blur-[140px] pointer-events-none floating-shape"></div>
+      <div className="absolute bottom-40 left-10 w-80 h-80 bg-indigo-500/4 rounded-full blur-[120px] pointer-events-none floating-shape" style={{ animationDelay: '6s' }}></div>
+
+      {/* Decorative Accent Scanline */}
+      <div className="absolute top-0 right-[20%] w-[1px] h-96 bg-gradient-to-b from-purple-500/15 via-purple-500/3 to-transparent pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto relative z-10 space-y-12">
+        {/* Header */}
+        <div className="reveal-up">
+          <SectionHeader
+            title="Achievements & Honors"
+            subtitle="State competition podiums, government innovation grants, academic department rankings, and verified engineering credentials."
+          />
+        </div>
+
+        {/* ── Top Executive Honors Beacon Bar (SVG Icons, No Emojis) ── */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 reveal-up" style={{ animationDelay: '0.1s' }}>
+          {/* State Honors */}
+          <div className="p-5 card-premium rounded-2xl border-white/[0.06] hover:border-amber-500/30 transition-all group">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+              </div>
+              <span className="text-[8px] font-mono font-bold text-amber-400 bg-amber-500/10 px-2.5 py-0.5 rounded-full border border-amber-500/20 uppercase tracking-widest">
+                State Podium
+              </span>
+            </div>
+            <div className="text-2xl font-light text-slate-900 dark:text-white tracking-tight">2 State Honors</div>
+            <p className="text-[10px] font-mono text-slate-400 mt-1">CREATO 3rd & SSIP Govt Grant</p>
           </div>
-     );
+
+          {/* Academic Rank */}
+          <div className="p-5 card-premium rounded-2xl border-white/[0.06] hover:border-purple-500/30 transition-all group">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-8 h-8 rounded-xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5" />
+                </svg>
+              </div>
+              <span className="text-[8px] font-mono font-bold text-purple-400 bg-purple-500/10 px-2.5 py-0.5 rounded-full border border-purple-500/20 uppercase tracking-widest">
+                Department Rank #2
+              </span>
+            </div>
+            <div className="text-2xl font-light text-slate-900 dark:text-white tracking-tight">9.73 CGPA</div>
+            <p className="text-[10px] font-mono text-slate-400 mt-1">Diploma IT Department Topper</p>
+          </div>
+
+          {/* Research Certs */}
+          <div className="p-5 card-premium rounded-2xl border-white/[0.06] hover:border-indigo-500/30 transition-all group">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-8 h-8 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <span className="text-[8px] font-mono font-bold text-indigo-400 bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20 uppercase tracking-widest">
+                Research & ATS
+              </span>
+            </div>
+            <div className="text-2xl font-light text-slate-900 dark:text-white tracking-tight">5 Credentials</div>
+            <p className="text-[10px] font-mono text-slate-400 mt-1">IIT Ropar, IndiaAI, IBM, Deloitte</p>
+          </div>
+
+          {/* Hackathons */}
+          <div className="p-5 card-premium rounded-2xl border-white/[0.06] hover:border-emerald-500/30 transition-all group">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <span className="text-[8px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-0.5 rounded-full border border-emerald-500/20 uppercase tracking-widest">
+                Competitive Builds
+              </span>
+            </div>
+            <div className="text-2xl font-light text-slate-900 dark:text-white tracking-tight">4 Hackathons</div>
+            <p className="text-[10px] font-mono text-slate-400 mt-1">Smart India Hackathon & TechFests</p>
+          </div>
+        </div>
+
+        {/* ── Minimalist Segmented Filter Bar (No Emojis) ── */}
+        <div className="flex justify-center reveal-up" style={{ animationDelay: '0.15s' }}>
+          <div className="inline-flex p-1 bg-white/50 dark:bg-black/60 backdrop-blur-xl rounded-2xl border border-slate-200/50 dark:border-white/[0.06] shadow-lg shadow-purple-500/3 overflow-x-auto max-w-full">
+            {[
+              { id: 'all', label: 'All Milestones' },
+              { id: 'podiums', label: 'State Honors & Grants' },
+              { id: 'academic', label: 'Academic Excellence' },
+              { id: 'certifications', label: 'Verified Credentials' },
+              { id: 'hackathons', label: 'Hackathons & Builds' },
+            ].map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => setActiveFilter(id as FilterCategory)}
+                className={`px-4 py-2 rounded-xl text-[9.5px] font-mono uppercase tracking-wider transition-all duration-300 cursor-pointer select-none whitespace-nowrap ${
+                  activeFilter === id
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-md shadow-purple-500/20 font-bold'
+                    : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Chronological Year Layers ── */}
+        <div className="space-y-16">
+          {years.map((yearStr) => {
+            const yearItems = filteredAchievements.filter((item) => item.year === yearStr);
+
+            return (
+              <div key={yearStr} className="relative pl-6 md:pl-10 border-l-2 border-purple-500/20">
+                {/* Year Marker Header Row */}
+                <div className="flex items-center space-x-3 -ml-[33px] md:-ml-[49px] mb-6">
+                  <div className="w-8 h-8 rounded-full bg-slate-900 border-2 border-purple-500 flex items-center justify-center shadow-[0_0_15px_rgba(168,85,247,0.4)] shrink-0 z-10">
+                    <span className="w-2 h-2 rounded-full bg-purple-400" />
+                  </div>
+                  <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 backdrop-blur-md">
+                    <span className="text-xs font-mono font-bold tracking-[0.25em] text-purple-300 uppercase">
+                      {yearStr} ERA
+                    </span>
+                  </div>
+                </div>
+
+                {/* Cards for this Year */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6">
+                  {yearItems.map((item) => {
+                    const isExpanded = expandedCards[item.id] ?? false;
+
+                    return (
+                      <div
+                        key={item.id}
+                        className="card-premium p-7 md:p-8 rounded-3xl border border-white/[0.06] hover:border-purple-500/40 transition-all duration-300 flex flex-col justify-between group"
+                      >
+                        <div>
+                          {/* Card Header Badges */}
+                          <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                            <div className="flex items-center gap-2">
+                              <span className={`px-2.5 py-0.5 text-[8.5px] font-mono font-bold uppercase tracking-widest rounded-full border ${item.badgeStyle}`}>
+                                {item.badge}
+                              </span>
+                              {item.scoreOrResult && (
+                                <span className="text-[9.5px] font-mono text-purple-300/90 font-medium">
+                                  {item.scoreOrResult}
+                                </span>
+                              )}
+                            </div>
+                            <span className="text-[10px] font-mono text-slate-400">{item.date}</span>
+                          </div>
+
+                          {/* Title & Organization */}
+                          <h4 className="text-xl font-light text-slate-900 dark:text-white tracking-tight group-hover:text-purple-300 transition-colors">
+                            {item.title}
+                          </h4>
+                          <p className="text-xs font-mono text-purple-400/90 mt-1 mb-4">
+                            {item.organization}
+                          </p>
+
+                          {/* Description Box */}
+                          <div className="p-4 rounded-2xl bg-black/40 border border-white/[0.05] mb-4">
+                            <p className="text-sm font-light text-slate-300 leading-relaxed">
+                              {item.description}
+                            </p>
+                          </div>
+
+                          {/* Tech Stack / Competency Chips */}
+                          <div className="flex flex-wrap gap-1.5 mb-4">
+                            {item.skills.map((skill) => (
+                              <span
+                                key={skill}
+                                className="px-2.5 py-1 rounded-lg bg-black/30 dark:bg-white/[0.03] border border-white/[0.06] text-[9.5px] font-mono text-slate-300"
+                              >
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+
+                          {/* Expandable Breakdown */}
+                          {isExpanded && (item.problemSolved || item.learnings) && (
+                            <div className="space-y-3 pt-3 border-t border-white/[0.06] animate-in fade-in duration-300 text-xs">
+                              {item.problemSolved && (
+                                <div>
+                                  <span className="text-[8.5px] font-mono font-bold uppercase tracking-widest text-slate-500 block mb-0.5">
+                                    Problem Solved / Focus
+                                  </span>
+                                  <p className="text-slate-300 font-light leading-relaxed">
+                                    {item.problemSolved}
+                                  </p>
+                                </div>
+                              )}
+                              {item.learnings && (
+                                <div>
+                                  <span className="text-[8.5px] font-mono font-bold uppercase tracking-widest text-slate-500 block mb-0.5">
+                                    Key Takeaway & Jury Feedback
+                                  </span>
+                                  <p className="text-purple-300/90 font-mono italic leading-relaxed">
+                                    "{item.learnings}"
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Card Footer Actions */}
+                        <div className="pt-4 border-t border-white/[0.06] flex items-center justify-between mt-3 gap-2">
+                          {(item.problemSolved || item.learnings) ? (
+                            <button
+                              onClick={() => toggleExpand(item.id)}
+                              className="text-[10px] font-mono text-slate-400 hover:text-white transition-colors flex items-center gap-1 cursor-pointer"
+                            >
+                              <span>{isExpanded ? 'Hide Details' : 'View Architecture Breakdown'}</span>
+                              <span>{isExpanded ? '↑' : '↓'}</span>
+                            </button>
+                          ) : (
+                            <span className="text-[10px] font-mono text-slate-500 italic">Verified Record</span>
+                          )}
+
+                          <div className="flex items-center space-x-2">
+                            {item.certificateUrl && (
+                              <a
+                                href={item.certificateUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-2.5 py-1 rounded-lg bg-purple-500/10 hover:bg-purple-500/20 border border-purple-500/30 text-[9.5px] font-mono text-purple-300 hover:text-white flex items-center gap-1 transition-all shadow-sm"
+                              >
+                                <span>{item.certificateLabel || 'Certificate'}</span>
+                                <span>↗</span>
+                              </a>
+                            )}
+                            {item.githubUrl && (
+                              <a
+                                href={item.githubUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-2.5 py-1 rounded-lg bg-white/[0.03] hover:bg-white/[0.06] border border-white/10 text-[9.5px] font-mono text-slate-300 hover:text-white flex items-center gap-1 transition-all"
+                              >
+                                <span>Code</span>
+                                <span>↗</span>
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Decoration */}
+        <div className="flex items-center justify-center mt-20 opacity-25">
+          <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+          <div className="mx-3 w-1.5 h-1.5 bg-purple-500/40 rounded-full"></div>
+          <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent"></div>
+        </div>
+      </div>
+    </div>
+  );
 };
