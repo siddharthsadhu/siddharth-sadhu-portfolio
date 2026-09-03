@@ -79,8 +79,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelect }) => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Project Card */}
-              <div className="card-premium p-8 md:p-12 rounded-3xl overflow-hidden relative">
-                <div className="relative z-10 grid lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+              <div className="card-premium p-5 sm:p-8 md:p-12 rounded-3xl overflow-hidden relative">
+                <div className="relative z-10 grid lg:grid-cols-[1.4fr_1fr] gap-8 sm:gap-10 items-center">
                   <div className="space-y-6">
                     {/* Category & Date */}
                     <div className="flex flex-wrap items-center gap-3">
@@ -94,7 +94,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelect }) => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-2xl md:text-4xl font-extralight tracking-tight text-slate-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-indigo-400 transition-all duration-500">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-extralight tracking-tight text-slate-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-indigo-400 transition-all duration-500">
                       {project.title}
                     </h3>
 
@@ -116,15 +116,15 @@ export const Projects: React.FC<ProjectsProps> = ({ onSelect }) => {
                     </div>
 
                     {/* Metrics Cards */}
-                    <div className="grid grid-cols-3 gap-3 pt-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-2">
                       {project.metrics.map((m, i) => (
-                        <div key={i} className="p-3.5 glass-card rounded-2xl border border-white/5 bg-black/10">
+                        <div key={i} className="p-3 sm:p-3.5 glass-card rounded-2xl border border-white/5 bg-black/10 flex flex-col justify-between">
                           <div className="flex items-center space-x-1.5 mb-1">
                             <div className="w-1.5 h-1.5 bg-purple-500 rounded-full shadow-[0_0_6px_rgba(167,139,250,0.5)]" />
                             <span className="text-[8px] uppercase tracking-[0.2em] font-bold text-slate-400 dark:text-slate-500 truncate">{m.label}</span>
                           </div>
                           <div className="flex flex-col">
-                            <span className="text-base md:text-lg font-light text-slate-900 dark:text-white tracking-tight">{m.value}</span>
+                            <span className="text-sm sm:text-base md:text-lg font-light text-slate-900 dark:text-white tracking-tight">{m.value}</span>
                             {m.subtext && <span className="text-[10px] text-purple-500 dark:text-purple-400 font-medium truncate">{m.subtext}</span>}
                           </div>
                         </div>

@@ -150,28 +150,27 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
         className="fixed inset-0 z-[99999] w-screen h-screen bg-slate-950 flex flex-col overflow-hidden animate-in fade-in duration-200"
       >
         {/* Top Command Bar (Fixed & Minimalist) */}
-        <header className="h-14 px-6 bg-slate-900/95 border-b border-white/10 flex items-center justify-between gap-4 shrink-0 z-20">
-          <div className="space-y-0.5 min-w-0">
+        <header className="h-14 px-3 sm:px-6 bg-slate-900/95 border-b border-white/10 flex items-center justify-between gap-2 sm:gap-4 shrink-0 z-20">
+          <div className="space-y-0.5 min-w-0 pr-2">
             <div className="flex items-center space-x-2 truncate">
               <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0 animate-pulse" />
-              <h3 id="blueprint-modal-title" className="text-sm md:text-base font-medium text-white truncate">
+              <h3 id="blueprint-modal-title" className="text-xs sm:text-sm md:text-base font-medium text-white truncate">
                 {modalData.title}
               </h3>
             </div>
-            <p className="text-[11px] font-mono text-purple-400 truncate">{modalData.subtitle}</p>
+            <p className="text-[10px] sm:text-[11px] font-mono text-purple-400 truncate">{modalData.subtitle}</p>
           </div>
 
           {/* Inspection Toolbar (Magnifier Scope, Zoom, Reset, Download, Close) */}
-          <div className="flex items-center space-x-3 shrink-0">
+          <div className="flex items-center space-x-1.5 sm:space-x-3 shrink-0">
             {modalData.isBlueprint && (
               <>
-                {/* Interactive Optical Magnifier Scope Toggle */}
+                {/* Interactive Optical Magnifier Scope Toggle (hidden on small mobile) */}
                 <button
                   onClick={() => {
                     setIsMagnifierActive((prev) => !prev);
-                    if (isMagnifierActive) setLensState((prev) => ({ ...prev, visible: false }));
                   }}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-mono border transition-all cursor-pointer flex items-center gap-1.5 select-none ${
+                  className={`hidden sm:flex px-3 py-1.5 rounded-xl text-xs font-mono border transition-all cursor-pointer items-center gap-1.5 select-none ${
                     isMagnifierActive && zoomLevel === 100
                       ? 'bg-purple-600/30 border-purple-500/50 text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.3)]'
                       : 'bg-black/40 border-white/10 text-slate-400 hover:text-white hover:bg-white/5'
@@ -183,21 +182,21 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
                 </button>
 
                 {/* High-Impact Zoom Segment */}
-                <div className="flex items-center bg-black/60 border border-white/10 rounded-xl p-1 text-xs font-mono text-slate-300">
+                <div className="flex items-center bg-black/60 border border-white/10 rounded-xl p-0.5 sm:p-1 text-[11px] sm:text-xs font-mono text-slate-300">
                   <button
                     onClick={handleZoomOut}
-                    className="px-2.5 py-1 hover:bg-white/10 rounded-lg text-slate-300 hover:text-white transition-colors cursor-pointer select-none"
+                    className="px-2 sm:px-2.5 py-1 hover:bg-white/10 rounded-lg text-slate-300 hover:text-white transition-colors cursor-pointer select-none"
                     title="Zoom Out (-)"
                     aria-label="Zoom out"
                   >
                     －
                   </button>
-                  <span className="px-3 py-1 font-semibold text-purple-300 min-w-[55px] text-center select-none">
+                  <span className="px-1.5 sm:px-3 py-1 font-semibold text-purple-300 min-w-[42px] sm:min-w-[55px] text-center select-none text-[10px] sm:text-xs">
                     {zoomLevel}%
                   </span>
                   <button
                     onClick={handleZoomIn}
-                    className="px-2.5 py-1 hover:bg-white/10 rounded-lg text-slate-300 hover:text-white transition-colors cursor-pointer select-none"
+                    className="px-2 sm:px-2.5 py-1 hover:bg-white/10 rounded-lg text-slate-300 hover:text-white transition-colors cursor-pointer select-none"
                     title="Zoom In (+)"
                     aria-label="Zoom in"
                   >
@@ -206,9 +205,8 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
                   <button
                     onClick={() => {
                       setZoomLevel(100);
-                      setLensState((prev) => ({ ...prev, visible: false }));
                     }}
-                    className={`px-3 py-1 ml-1 text-[11px] rounded-lg font-medium transition-all cursor-pointer select-none ${
+                    className={`hidden sm:inline-block px-3 py-1 ml-1 text-[11px] rounded-lg font-medium transition-all cursor-pointer select-none ${
                       zoomLevel !== 100
                         ? 'bg-purple-600/30 text-purple-300 border border-purple-500/30 hover:bg-purple-600/50'
                         : 'text-slate-400 hover:text-slate-200 hover:bg-white/10'
@@ -224,13 +222,13 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
             <a
               href={modalData.src}
               download={`${project.id}-architecture-blueprint`}
-              className="px-3.5 py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/30 border border-purple-500/30 text-purple-300 text-xs font-mono transition-colors flex items-center gap-1.5"
+              className="p-2 sm:px-3.5 sm:py-2 rounded-xl bg-purple-500/15 hover:bg-purple-500/30 border border-purple-500/30 text-purple-300 text-xs font-mono transition-colors flex items-center gap-1.5"
               title="Download Original Blueprint"
             >
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
-              <span className="hidden sm:inline">Download</span>
+              <span className="hidden md:inline">Download</span>
             </a>
 
             <button
@@ -410,14 +408,14 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
 
             {/* Live GitHub Clone Widget */}
             <div className="pt-2">
-              <div className="p-3.5 bg-slate-950/80 rounded-2xl border border-white/10 flex items-center justify-between gap-4 font-mono text-xs">
-                <div className="flex items-center space-x-2 text-slate-400 overflow-hidden">
-                  <span className="text-purple-400 select-none">$</span>
-                  <span className="text-slate-200 truncate">{cloneCommand}</span>
+              <div className="p-3 sm:p-3.5 bg-slate-950/80 rounded-2xl border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono text-xs">
+                <div className="flex items-center space-x-2 text-slate-400 overflow-x-auto scrollbar-none py-0.5">
+                  <span className="text-purple-400 select-none shrink-0">$</span>
+                  <span className="text-slate-200 whitespace-nowrap select-all">{cloneCommand}</span>
                 </div>
                 <button
                   onClick={handleCopyClone}
-                  className="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-purple-600 text-white text-[10px] font-sans font-bold uppercase tracking-wider transition-colors shrink-0 cursor-pointer"
+                  className="w-full sm:w-auto px-4 py-2 sm:py-1.5 rounded-lg bg-white/10 hover:bg-purple-600 text-white text-[10px] font-sans font-bold uppercase tracking-wider transition-colors shrink-0 cursor-pointer text-center"
                 >
                   {copiedClone ? 'Copied! ✓' : 'Copy'}
                 </button>
@@ -463,7 +461,7 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
 
       {/* Quick Specs Bar */}
       <div className="border-y border-slate-200/50 dark:border-white/5 py-6 mb-12 bg-white/30 dark:bg-white/[0.01] backdrop-blur-sm">
-        <div className="px-8 md:px-24 max-w-7xl mx-auto">
+        <div className="px-4 sm:px-8 md:px-24 max-w-7xl mx-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10">
             {[
               { label: 'Role', value: project.role, color: '#10b981' },
@@ -551,7 +549,29 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
         </aside>
 
         {/* Dynamic Tab Panes */}
-        <div className="min-h-[400px]">
+        <div className="min-h-[400px] space-y-8">
+          {/* Mobile Tech Stack & Highlights (Visible on < lg viewports) */}
+          <div className="block lg:hidden p-5 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 rounded-2xl border border-purple-500/20 space-y-4">
+            <div>
+              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-400 mb-2">Technologies Used</div>
+              <div className="flex flex-wrap gap-1.5">
+                {project.stack.map((s) => (
+                  <span key={s} className="px-2.5 py-1 bg-black/50 border border-white/10 rounded-lg text-[10px] font-mono text-slate-200">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-3 border-t border-white/5">
+              {project.metrics.map((m, i) => (
+                <div key={i} className="text-xs">
+                  <span className="text-[9px] text-slate-400 font-mono uppercase block">{m.label}</span>
+                  <span className="text-purple-300 font-medium">{m.value}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* TAB 1: Problem & Scope */}
           {activeTab === 'overview' && (
             <div className="space-y-8 animate-in fade-in duration-300">
