@@ -10,6 +10,8 @@ import { HackathonsCertifications } from './pages/HackathonsCertifications';
 import { Contact } from './pages/Contact';
 import { CursorFollower } from './components/CursorFollower';
 import { AnimatePresence, motion } from 'framer-motion';
+import { SpeedInsights } from '@vercel/speed-insights/react';
+import { Analytics } from '@vercel/analytics/react';
 
 // Helper to get page from URL hash
 const getPageFromHash = (): Page => {
@@ -224,6 +226,10 @@ const App: React.FC = () => {
           {renderPage()}
         </motion.main>
       </AnimatePresence>
+
+      {/* Vercel Speed Insights & Real-time Web Analytics */}
+      <SpeedInsights />
+      <Analytics />
     </div>
   );
 };
