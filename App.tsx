@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Page, Theme, Project } from './types';
+import { Page, Project } from './types';
 import { PROJECTS_DATA } from './data';
 import { Home } from './pages/Home';
 import { Journey } from './pages/Journey';
@@ -8,7 +8,6 @@ import { ProjectDeepDive } from './pages/ProjectDeepDive';
 import { Experience } from './pages/Experience';
 import { HackathonsCertifications } from './pages/HackathonsCertifications';
 import { Contact } from './pages/Contact';
-import { ThemeToggle } from './components/ThemeToggle';
 import { CursorFollower } from './components/CursorFollower';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -39,7 +38,6 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>(() => getPageFromHash());
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [hasBegun, setHasBegun] = useState(() => getPageFromHash() !== Page.Home);
-  const [theme, setTheme] = useState<Theme>('dark');
 
   const narrativeSequence = [
     Page.Journey,
@@ -67,11 +65,11 @@ const App: React.FC = () => {
     [Page.Contact]: 'Contact'
   };
 
-  // Theme management
+  // Permanent Dark Theme setup
   useEffect(() => {
-    document.documentElement.classList.remove('dark', 'light');
-    document.documentElement.classList.add(theme);
-  }, [theme]);
+    document.documentElement.classList.remove('light');
+    document.documentElement.classList.add('dark');
+  }, []);
 
   // Scroll to top + update title on page change
   useEffect(() => {
@@ -101,8 +99,6 @@ const App: React.FC = () => {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
-
-  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
   const navigateTo = useCallback((page: Page, fromPopstate: boolean = false) => {
     if (page !== Page.Home) setHasBegun(true);
@@ -166,7 +162,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen font-sans transition-colors duration-500 bg-background-light dark:bg-background-dark">
+    <div className="relative min-h-screen font-sans bg-[#0A0A0B] text-[#F9FAFB] dark">
       <CursorFollower />
 
       {/* Navigation */}
@@ -174,29 +170,29 @@ const App: React.FC = () => {
         aria-label="Main navigation"
         className={`fixed top-0 left-0 right-0 z-50 px-6 py-5 md:px-16 lg:px-24 flex justify-between items-center transition-all duration-700 ease-out-expo ${
           hasBegun
-            ? 'glass bg-white/70 dark:bg-white/[0.03] border-b border-slate-200/60 dark:border-white/[0.04] opacity-100 shadow-sm dark:shadow-none'
+            ? 'glass bg-white/[0.03] border-b border-white/[0.04] opacity-100 shadow-none'
             : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
       >
         <button
           onClick={() => navigateTo(Page.Home)}
           aria-label="Go to home page"
-          className="text-slate-900 dark:text-white/90 text-sm font-bold tracking-[0.25em] uppercase hover:text-purple-700 dark:hover:text-purple-400 transition-colors duration-300"
+          className="text-white/90 text-sm font-bold tracking-[0.25em] uppercase hover:text-purple-400 transition-colors duration-300 cursor-pointer"
         >
           S. Sadhu
         </button>
 
-        <div className="flex items-center space-x-6 lg:space-x-10">
-          <div className="hidden md:flex items-center space-x-5 lg:space-x-8">
+        <div className="flex items-center space-x-6 lg:space-x-8">
+          <div className="flex items-center space-x-5 lg:space-x-8">
             {navPages.map((page) => (
               <button
                 key={page}
                 onClick={() => navigateTo(page)}
                 aria-current={isPageActive(page) ? 'page' : undefined}
-                className={`relative text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:text-purple-700 dark:hover:text-purple-400 ${
+                className={`relative text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:text-purple-400 cursor-pointer ${
                   isPageActive(page)
-                    ? 'text-purple-700 dark:text-purple-400'
-                    : 'text-slate-500 dark:text-slate-400'
+                    ? 'text-purple-400'
+                    : 'text-slate-400'
                 }`}
               >
                 {pageDisplayNames[page]}
@@ -210,7 +206,6 @@ const App: React.FC = () => {
               </button>
             ))}
           </div>
-          <ThemeToggle theme={theme} toggle={toggleTheme} />
         </div>
       </nav>
 
@@ -229,8 +224,6 @@ const App: React.FC = () => {
           {renderPage()}
         </motion.main>
       </AnimatePresence>
-
-
     </div>
   );
 };
