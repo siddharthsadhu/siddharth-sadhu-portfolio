@@ -287,21 +287,54 @@ export const Experience: React.FC = () => {
                         </div>
                       </div>
                     ) : (
-                      <div className="animate-in fade-in slide-in-from-left-4 duration-500 space-y-6">
-                        {/* Narrative Paragraph */}
-                        <p className="text-base font-light leading-relaxed text-slate-600 dark:text-slate-300/80">
-                          {exp.narrative}
-                        </p>
-
-                        {/* Standout Achievement Box */}
-                        <div className="p-5 rounded-2xl bg-gradient-to-r from-purple-500/[0.04] to-indigo-500/[0.02] border border-purple-400/15 dark:border-purple-500/15 relative overflow-hidden">
-                          <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500 to-indigo-500"></div>
-                          <div className="flex items-center space-x-2 mb-2">
-                            <span className="text-[9px] font-bold uppercase tracking-[0.2em] text-purple-600 dark:text-purple-400">Key Achievement</span>
-                          </div>
-                          <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
-                            {exp.highlight}
+                      <div className="animate-in fade-in slide-in-from-left-4 duration-500 space-y-4">
+                        {/* Structured Narrative Breakdown */}
+                        {typeof exp.narrative === 'string' ? (
+                          <p className="text-base font-light leading-relaxed text-slate-300">
+                            {exp.narrative}
                           </p>
+                        ) : (
+                          <div className="space-y-3.5">
+                            {exp.narrative.context && (
+                              <div className="p-4 rounded-xl bg-purple-500/[0.03] border border-purple-500/15">
+                                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-purple-400 font-bold mb-1.5 flex items-center space-x-2">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                                  <span>Context & Mission</span>
+                                </div>
+                                <p className="text-sm font-light text-slate-300 leading-relaxed">{exp.narrative.context}</p>
+                              </div>
+                            )}
+                            {exp.narrative.decisions && (
+                              <div className="p-4 rounded-xl bg-indigo-500/[0.03] border border-indigo-500/15">
+                                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-indigo-400 font-bold mb-1.5 flex items-center space-x-2">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                                  <span>Architectural Decisions</span>
+                                </div>
+                                <p className="text-sm font-light text-slate-300 leading-relaxed">{exp.narrative.decisions}</p>
+                              </div>
+                            )}
+                            {exp.narrative.learning && (
+                              <div className="p-4 rounded-xl bg-emerald-500/[0.03] border border-emerald-500/15">
+                                <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-400 font-bold mb-1.5 flex items-center space-x-2">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                  <span>Growth & Takeaways</span>
+                                </div>
+                                <p className="text-sm font-light text-slate-300 leading-relaxed">{exp.narrative.learning}</p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Tech Stack Pills in Narrative Mode */}
+                        <div className="flex flex-wrap gap-2 pt-2">
+                          {exp.techStack.map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-2.5 py-1 rounded-lg text-[9px] font-mono uppercase tracking-wider bg-white/[0.03] border border-white/10 text-slate-400"
+                            >
+                              {tech}
+                            </span>
+                          ))}
                         </div>
                       </div>
                     )}
