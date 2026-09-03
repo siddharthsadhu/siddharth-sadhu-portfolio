@@ -17,7 +17,7 @@ export const Experience: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen py-24 px-6 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
+    <div className="min-h-screen py-20 md:py-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.025] dark:opacity-[0.04] bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] [background-size:80px_80px] text-slate-900 dark:text-white"></div>
 

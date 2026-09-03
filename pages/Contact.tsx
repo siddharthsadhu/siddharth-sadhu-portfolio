@@ -229,6 +229,7 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) return;
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;

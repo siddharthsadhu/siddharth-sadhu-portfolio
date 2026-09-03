@@ -13,7 +13,7 @@ interface HomeProps {
 
 export const Home: React.FC<HomeProps> = ({ onBegin }) => {
   return (
-    <div className="relative flex flex-col lg:flex-row items-center justify-between px-6 md:px-16 lg:px-24 overflow-hidden animated-bg noise-overlay" style={{ minHeight: '100vh', paddingTop: '5rem', paddingBottom: '2rem' }}>
+    <div className="relative flex flex-col lg:flex-row items-center justify-between px-4 sm:px-8 md:px-16 lg:px-24 overflow-hidden animated-bg noise-overlay" style={{ minHeight: '100vh', paddingTop: '5.5rem', paddingBottom: '2.5rem' }}>
       {/* Interactive Constellation Map */}
       <ConstellationMap />
 
@@ -37,7 +37,7 @@ export const Home: React.FC<HomeProps> = ({ onBegin }) => {
       <div className="absolute bottom-0 right-[30%] w-[1px] h-32 bg-gradient-to-t from-indigo-500/10 via-indigo-500/3 to-transparent pointer-events-none"></div>
 
       {/* ── Left Content Column ── */}
-      <div className="relative z-10 w-full lg:w-[50%] py-24 lg:py-0 flex flex-col justify-center space-y-10">
+      <div className="relative z-10 w-full lg:w-[50%] py-12 lg:py-0 flex flex-col justify-center space-y-8 sm:space-y-10">
         <div className="space-y-7">
           {/* Tagline */}
           <div className="flex items-center space-x-4 reveal-up reveal-up-delay-1">
@@ -85,7 +85,7 @@ export const Home: React.FC<HomeProps> = ({ onBegin }) => {
       </div>
 
       {/* ── Right Visual / Hero Column ── */}
-      <div className="w-full lg:w-[45%] h-[40vh] lg:h-[85vh] flex items-center justify-center reveal-up relative" style={{ animationDelay: '0.3s', animationDuration: '1.5s' }}>
+      <div className="w-full lg:w-[45%] h-[350px] sm:h-[420px] lg:h-[85vh] flex items-center justify-center reveal-up relative" style={{ animationDelay: '0.3s', animationDuration: '1.5s' }}>
         <div className="relative w-full max-w-lg aspect-square">
           <PortraitHero />
         </div>

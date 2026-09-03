@@ -497,7 +497,7 @@ export const Journey: React.FC<JourneyProps> = ({ onNavigateToHackathons }) => {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen py-24 px-6 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
+    <div className="min-h-screen py-20 md:py-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
       <ScrollProgress />
 
       {/* Background */}

@@ -40,6 +40,7 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>(() => getPageFromHash());
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [hasBegun, setHasBegun] = useState(() => getPageFromHash() !== Page.Home);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const narrativeSequence = [
     Page.Journey,
@@ -76,6 +77,7 @@ const App: React.FC = () => {
   // Scroll to top + update title on page change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setMobileMenuOpen(false);
     const pageTitle = pageDisplayNames[currentPage] || 'Home';
     document.title = currentPage === Page.Home
       ? 'Hey there! • I am Siddharth Sadhu'
@@ -95,6 +97,7 @@ const App: React.FC = () => {
       const page = event.state?.page || getPageFromHash();
       if (page !== Page.Home) setHasBegun(true);
       setCurrentPage(page);
+      setMobileMenuOpen(false);
       if (page !== Page.ProjectDeepDive) setSelectedProject(null);
     };
 
@@ -105,6 +108,7 @@ const App: React.FC = () => {
   const navigateTo = useCallback((page: Page, fromPopstate: boolean = false) => {
     if (page !== Page.Home) setHasBegun(true);
     setCurrentPage(page);
+    setMobileMenuOpen(false);
     if (page !== Page.ProjectDeepDive) setSelectedProject(null);
 
     if (!fromPopstate) {
@@ -170,7 +174,7 @@ const App: React.FC = () => {
       {/* Navigation */}
       <nav
         aria-label="Main navigation"
-        className={`fixed top-0 left-0 right-0 z-50 px-6 py-5 md:px-16 lg:px-24 flex justify-between items-center transition-all duration-700 ease-out-expo ${
+        className={`fixed top-0 left-0 right-0 z-50 px-5 py-4 sm:px-8 md:px-16 lg:px-24 flex justify-between items-center transition-all duration-700 ease-out-expo ${
           hasBegun
             ? 'glass bg-white/[0.03] border-b border-white/[0.04] opacity-100 shadow-none'
             : 'opacity-0 -translate-y-4 pointer-events-none'
@@ -179,37 +183,85 @@ const App: React.FC = () => {
         <button
           onClick={() => navigateTo(Page.Home)}
           aria-label="Go to home page"
-          className="text-white/90 text-sm font-bold tracking-[0.25em] uppercase hover:text-purple-400 transition-colors duration-300 cursor-pointer"
+          className="text-white/90 text-xs sm:text-sm font-bold tracking-[0.25em] uppercase hover:text-purple-400 transition-colors duration-300 cursor-pointer"
         >
           S. Sadhu
         </button>
 
-        <div className="flex items-center space-x-6 lg:space-x-8">
-          <div className="flex items-center space-x-5 lg:space-x-8">
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
+          {navPages.map((page) => (
+            <button
+              key={page}
+              onClick={() => navigateTo(page)}
+              aria-current={isPageActive(page) ? 'page' : undefined}
+              className={`relative text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:text-purple-400 cursor-pointer ${
+                isPageActive(page)
+                  ? 'text-purple-400'
+                  : 'text-slate-400'
+              }`}
+            >
+              {pageDisplayNames[page]}
+              {isPageActive(page) && (
+                <motion.div
+                  layoutId="nav-indicator"
+                  className="absolute -bottom-2 left-0 right-0 h-[1.5px] bg-gradient-to-r from-purple-500 to-indigo-500"
+                  transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile Hamburger Toggle Button */}
+        <div className="flex md:hidden items-center">
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle mobile menu"
+            className="p-2 rounded-xl bg-white/[0.04] border border-white/10 text-slate-300 hover:text-white transition-colors"
+          >
+            {mobileMenuOpen ? (
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Slide-Down Navigation Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && hasBegun && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
+            className="fixed top-[61px] left-0 right-0 z-40 md:hidden glass bg-[#0A0A0B]/95 border-b border-white/10 backdrop-blur-xl p-6 shadow-2xl space-y-3"
+          >
             {navPages.map((page) => (
               <button
                 key={page}
                 onClick={() => navigateTo(page)}
-                aria-current={isPageActive(page) ? 'page' : undefined}
-                className={`relative text-[10px] font-bold uppercase tracking-[0.2em] transition-all duration-300 hover:text-purple-400 cursor-pointer ${
+                className={`w-full text-left px-4 py-3 rounded-xl text-xs font-mono font-bold tracking-[0.2em] uppercase transition-all duration-200 flex items-center justify-between ${
                   isPageActive(page)
-                    ? 'text-purple-400'
-                    : 'text-slate-400'
+                    ? 'bg-purple-500/15 border border-purple-500/30 text-purple-300'
+                    : 'bg-white/[0.02] border border-white/5 text-slate-400 hover:text-white hover:bg-white/[0.05]'
                 }`}
               >
-                {pageDisplayNames[page]}
+                <span>{pageDisplayNames[page]}</span>
                 {isPageActive(page) && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute -bottom-2 left-0 right-0 h-[1.5px] bg-gradient-to-r from-purple-500 to-indigo-500"
-                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                  />
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
                 )}
               </button>
             ))}
-          </div>
-        </div>
-      </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Main Content with Page Transitions */}
       <AnimatePresence mode="wait">

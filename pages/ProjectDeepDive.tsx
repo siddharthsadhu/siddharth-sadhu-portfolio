@@ -330,7 +330,7 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
       <div className="absolute bottom-40 left-0 w-72 h-72 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none floating-shape" style={{ animationDelay: '5s' }} />
 
       {/* Hero Section */}
-      <div className="px-8 md:px-24 mb-12 max-w-7xl mx-auto relative z-10">
+      <div className="px-4 sm:px-8 md:px-24 mb-12 max-w-7xl mx-auto relative z-10">
         {/* Back Button */}
         <button
           onClick={onBack}
@@ -486,8 +486,8 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
       </div>
 
       {/* Interactive System Tabs Navigation */}
-      <div className="px-8 md:px-24 max-w-7xl mx-auto mb-10">
-        <div className="flex flex-wrap gap-2 p-1.5 bg-slate-900/60 backdrop-blur-xl rounded-2xl border border-white/10 w-fit">
+      <div className="px-4 sm:px-8 md:px-24 max-w-7xl mx-auto mb-10">
+        <div className="flex flex-wrap gap-2 p-1.5 bg-slate-900/60 backdrop-blur-xl rounded-2xl border border-white/10 w-fit max-w-full">
           {[
             { id: 'overview', label: '01. Problem & Scope' },
             { id: 'architecture', label: '02. System Architecture & Flow' },
@@ -499,7 +499,7 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id as TabType)}
-                className={`px-5 py-2.5 rounded-xl text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer ${
+                className={`px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-mono tracking-wider transition-all duration-300 cursor-pointer ${
                   isActive
                     ? 'bg-purple-600 text-white shadow-[0_0_15px_rgba(168,85,247,0.4)] font-medium'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'
@@ -513,7 +513,7 @@ export const ProjectDeepDive: React.FC<ProjectDeepDiveProps> = ({ project, onBac
       </div>
 
       {/* Main Tabbed Content Body */}
-      <div className="px-8 md:px-24 max-w-7xl mx-auto grid lg:grid-cols-[1fr_2.5fr] gap-12 lg:gap-16 relative z-10">
+      <div className="px-4 sm:px-8 md:px-24 max-w-7xl mx-auto grid lg:grid-cols-[1fr_2.5fr] gap-12 lg:gap-16 relative z-10">
         {/* Sticky Tech Sidebar */}
         <aside className="hidden lg:block sticky top-32 h-fit space-y-6">
           {/* Tech Stack Chips */}
