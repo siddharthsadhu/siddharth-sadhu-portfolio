@@ -83,7 +83,7 @@ export const SystemStatus: React.FC = () => {
   }, []);
 
   return (
-    <div className="absolute top-4 right-0 md:-right-12 flex items-center space-x-3 glass-card px-5 py-3.5 rounded-2xl shadow-2xl transition-all hover:translate-x-1 group cursor-default z-30">
+    <div className="absolute top-4 right-0 md:-right-12 hidden sm:flex items-center space-x-3 glass-card px-5 py-3.5 rounded-2xl shadow-2xl transition-all hover:translate-x-1 group cursor-default z-30">
       <div className="relative">
         <div className={`w-2.5 h-2.5 rounded-full animate-ping absolute inset-0 opacity-60 ${isOnline ? 'bg-emerald-500' : 'bg-red-500'}`}></div>
         <div className={`w-2.5 h-2.5 rounded-full relative border-[1.5px] border-white dark:border-slate-900 ${isOnline ? 'bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-red-400 shadow-[0_0_10px_rgba(239,68,68,0.5)]'}`}></div>

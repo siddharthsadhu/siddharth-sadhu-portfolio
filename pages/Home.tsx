@@ -85,7 +85,7 @@ export const Home: React.FC<HomeProps> = ({ onBegin }) => {
       </div>
 
       {/* ── Right Visual / Hero Column ── */}
-      <div className="w-full lg:w-[45%] h-[350px] sm:h-[420px] lg:h-[85vh] flex items-center justify-center reveal-up relative" style={{ animationDelay: '0.3s', animationDuration: '1.5s' }}>
+      <div className="w-full lg:w-[45%] h-[320px] sm:h-[420px] lg:h-[85vh] flex items-center justify-center reveal-up relative my-6 lg:my-0" style={{ animationDelay: '0.3s', animationDuration: '1.5s' }}>
         <div className="relative w-full max-w-lg aspect-square">
           <PortraitHero />
         </div>

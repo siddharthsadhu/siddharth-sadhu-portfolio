@@ -267,7 +267,7 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
           transition: 'transform 0.15s ease-out',
           transformStyle: 'preserve-3d'
         }}
-        className="relative overflow-hidden rounded-3xl p-7 md:p-8 card-premium border border-white/10 hover:border-purple-500/50 shadow-2xl bg-gradient-to-br from-slate-900/90 via-black/80 to-purple-950/30 backdrop-blur-2xl group cursor-pointer"
+        className="relative overflow-hidden rounded-3xl p-5 sm:p-7 md:p-8 card-premium border border-white/10 hover:border-purple-500/50 shadow-2xl bg-gradient-to-br from-slate-900/90 via-black/80 to-purple-950/30 backdrop-blur-2xl group cursor-pointer"
         onClick={onCopy}
       >
         {/* Dynamic Hologram Specular Glare */}
@@ -299,9 +299,9 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
         </div>
 
         {/* Core Identity Details */}
-        <div className="flex items-center space-x-5 mb-6 relative z-20" style={{ transform: 'translateZ(30px)' }}>
-          <div className="relative group/avatar">
-            <div className="w-16 h-16 rounded-2xl overflow-hidden border-2 border-purple-400/40 p-0.5 bg-gradient-to-br from-purple-500 to-indigo-500 shadow-lg shadow-purple-500/20">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:space-x-5 mb-6 relative z-20" style={{ transform: 'translateZ(30px)' }}>
+          <div className="relative group/avatar shrink-0">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border-2 border-purple-400/40 p-0.5 bg-gradient-to-br from-purple-500 to-indigo-500 shadow-lg shadow-purple-500/20">
               <img
                 src="/images/portrait.jpg"
                 alt="Siddharth Sadhu"
@@ -315,33 +315,33 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
             </div>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-light text-white tracking-tight flex items-center gap-2">
-              Siddharth Sadhu
+          <div className="min-w-0 w-full">
+            <h3 className="text-xl sm:text-2xl font-light text-white tracking-tight flex items-center gap-2">
+              <span>Siddharth Sadhu</span>
               <span className="inline-block text-xs text-purple-400 font-mono">↗</span>
             </h3>
-            <p className="text-xs font-mono text-purple-300/80 mt-0.5">
+            <p className="text-[11px] sm:text-xs font-mono text-purple-300/80 mt-0.5 break-words">
               AI Systems Engineer & Full-Stack Builder
             </p>
-            <p className="text-[10.5px] font-mono text-slate-400 mt-0.5">
+            <p className="text-[10px] sm:text-[10.5px] font-mono text-slate-400 mt-0.5 break-words">
               Adani University • Vicharanam Labs (IIT Ropar)
             </p>
           </div>
         </div>
 
         {/* Action Button Strip */}
-        <div className="p-4 rounded-2xl bg-black/60 border border-white/5 flex items-center justify-between relative z-20 hover:border-purple-500/30 transition-colors" style={{ transform: 'translateZ(25px)' }}>
-          <div className="min-w-0 pr-3">
-            <span className="text-[8px] font-mono font-bold uppercase tracking-widest text-slate-500 block">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-black/60 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-20 hover:border-purple-500/30 transition-colors" style={{ transform: 'translateZ(25px)' }}>
+          <div className="min-w-0 w-full">
+            <span className="text-[8px] font-mono font-bold uppercase tracking-widest text-slate-500 block mb-0.5">
               Direct Frequency
             </span>
-            <span className="text-sm md:text-base font-mono font-light text-purple-200 truncate block">
+            <span className="text-xs sm:text-sm md:text-base font-mono font-light text-purple-200 select-all break-all block">
               {email}
             </span>
           </div>
 
-          <div className="shrink-0 flex items-center space-x-2">
-            <span className={`px-3 py-1.5 rounded-xl text-[9px] font-mono font-bold uppercase tracking-wider transition-all duration-300 ${
+          <div className="shrink-0 w-full sm:w-auto">
+            <span className={`w-full sm:w-auto block text-center px-4 py-2 sm:py-1.5 rounded-xl text-[10px] sm:text-[9px] font-mono font-bold uppercase tracking-wider transition-all duration-300 ${
               copied
                 ? 'bg-emerald-500 text-white shadow-md shadow-emerald-500/30'
                 : 'bg-purple-600/80 text-white hover:bg-purple-600 shadow-md shadow-purple-500/20'
@@ -352,7 +352,7 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
         </div>
 
         {/* Card Footer Holographic Watermark */}
-        <div className="flex items-center justify-between mt-5 pt-4 border-t border-white/5 text-[9px] font-mono text-slate-500 relative z-20" style={{ transform: 'translateZ(15px)' }}>
+        <div className="flex flex-wrap items-center justify-between gap-2 mt-5 pt-4 border-t border-white/5 text-[8px] sm:text-[9px] font-mono text-slate-500 relative z-20" style={{ transform: 'translateZ(15px)' }}>
           <span>AHMEDABAD, IN (IST)</span>
           <span className="text-purple-400/70">REF: SID-2026-BUILD</span>
           <span>GLOBAL REMOTE READY</span>
@@ -521,7 +521,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen py-24 px-6 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
+    <div className="min-h-screen pt-28 pb-20 md:pt-36 md:pb-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
       {/* 3D Quantum Holographic Canvas in Background */}
       <QuantumSphereCanvas />
 
