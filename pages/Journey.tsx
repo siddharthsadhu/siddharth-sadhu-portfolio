@@ -256,54 +256,58 @@ const HeroLayout: React.FC<{ chapter: typeof storyChapters[0]; onImageClick: (sr
   const activeCaption = expanded && (chapter as any).expandedCaption ? (chapter as any).expandedCaption : chapter.imageCaption;
 
   return (
-    <div className="relative rounded-3xl overflow-hidden group">
-      {/* Full-width cinematic image */}
-      <div className="relative min-h-[50vh] md:min-h-[60vh] h-full overflow-hidden">
-        <img
-          key={activeImage}
-          src={activeImage}
-          alt={chapter.title}
-          className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 cursor-pointer absolute inset-0 animate-in fade-in"
-          onClick={() => onImageClick(activeImage)}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/70 to-slate-950/20 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent pointer-events-none" />
-      </div>
-
-      {/* Content overlay */}
-      <div className="absolute bottom-0 left-0 p-8 md:p-12 flex flex-col justify-end max-w-full md:max-w-[65%] lg:max-w-[55%] z-10">
-        <div className={`inline-block self-start px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase ${chapter.gradient} ${chapter.borderColor} border mb-4 backdrop-blur-md`}>
-          {chapter.year}
+    <div className="relative rounded-2xl md:rounded-3xl overflow-hidden group bg-slate-950/80 border border-white/5">
+      {/* On desktop: Cinematic Hero overlay; On mobile: Clean vertical stack */}
+      <div className="flex flex-col md:block relative min-h-[auto] md:min-h-[60vh] h-full overflow-hidden">
+        {/* Image Frame */}
+        <div className="relative w-full h-[220px] sm:h-[300px] md:h-full md:absolute md:inset-0 overflow-hidden bg-black/60">
+          <img
+            key={activeImage}
+            src={activeImage}
+            alt={chapter.title}
+            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 cursor-pointer"
+            onClick={() => onImageClick(activeImage)}
+          />
+          {/* Gradients on desktop for high text legibility */}
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-950/25 pointer-events-none" />
+          <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent pointer-events-none" />
         </div>
-        <h2 className="text-4xl md:text-5xl font-extralight text-white mb-2 tracking-tight">
-          {chapter.title}
-        </h2>
-        <p className="text-sm text-white/60 mb-3">{chapter.subtitle}</p>
-        <p className="text-base italic text-purple-300/90 mb-4">&ldquo;{chapter.quote}&rdquo;</p>
-        
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 hover:text-purple-300 transition-colors mb-2 text-left self-start flex items-center space-x-1.5 cursor-pointer"
-        >
-          <span>{expanded ? 'Read less ↑' : 'Read the story ↓'}</span>
-        </button>
 
-        {expanded && (
-          <div className="animate-in fade-in slide-in-from-top-2 duration-500">
-            <p className="text-sm text-white/80 leading-relaxed max-w-lg">{chapter.story}</p>
-            {activeCaption && (
-              <p className="text-xs italic text-purple-300/70 mt-2">
-                {activeCaption}
-              </p>
-            )}
-            {chapter.highlight && (
-              <div className={`inline-flex items-center space-x-2 px-4 py-2 rounded-xl mt-4 ${chapter.gradient} ${chapter.borderColor} border backdrop-blur-md`}>
-                <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60" />
-                <span className="text-[10px] font-bold tracking-wider">{chapter.highlight}</span>
-              </div>
-            )}
+        {/* Content Container (relative on mobile, absolute overlay on desktop) */}
+        <div className="relative md:absolute md:bottom-0 md:left-0 p-5 sm:p-8 md:p-12 flex flex-col justify-end max-w-full md:max-w-[65%] lg:max-w-[55%] z-10 bg-slate-950/95 md:bg-transparent border-t md:border-t-0 border-white/5">
+          <div className={`inline-block self-start px-3.5 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase ${chapter.gradient} ${chapter.borderColor} border mb-3 md:mb-4 backdrop-blur-md`}>
+            {chapter.year}
           </div>
-        )}
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extralight text-white mb-2 tracking-tight">
+            {chapter.title}
+          </h2>
+          <p className="text-xs sm:text-sm text-white/60 mb-2 md:mb-3">{chapter.subtitle}</p>
+          <p className="text-sm sm:text-base italic text-purple-300/90 mb-4">&ldquo;{chapter.quote}&rdquo;</p>
+          
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-400 hover:text-purple-300 transition-colors mb-2 text-left self-start flex items-center space-x-1.5 cursor-pointer bg-purple-500/10 px-3.5 py-1.5 rounded-xl border border-purple-500/20"
+          >
+            <span>{expanded ? 'Read less ↑' : 'Read the story ↓'}</span>
+          </button>
+
+          {expanded && (
+            <div className="animate-in fade-in slide-in-from-top-2 duration-500 mt-2 space-y-3">
+              <p className="text-xs sm:text-sm text-white/80 leading-relaxed">{chapter.story}</p>
+              {activeCaption && (
+                <p className="text-xs italic text-purple-300/80 pt-1">
+                  {activeCaption}
+                </p>
+              )}
+              {chapter.highlight && (
+                <div className={`inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-xl ${chapter.gradient} ${chapter.borderColor} border backdrop-blur-md`}>
+                  <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60" />
+                  <span className="text-[10px] font-bold tracking-wider">{chapter.highlight}</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -362,17 +366,17 @@ const ImageLeftLayout: React.FC<{ chapter: typeof storyChapters[0]; onImageClick
         )}
         <button
           onClick={() => setExpanded(!expanded)}
-          className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-purple-500 dark:hover:text-purple-400 transition-colors mb-4 cursor-pointer"
+          className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-400 hover:text-purple-300 transition-colors mb-4 cursor-pointer bg-purple-500/10 px-3.5 py-1.5 rounded-xl border border-purple-500/20 inline-flex items-center space-x-1.5"
         >
-          {expanded ? 'Read less ↑' : 'Read the story ↓'}
+          <span>{expanded ? 'Read less ↑' : 'Read the story ↓'}</span>
         </button>
         {expanded && (
-          <div className="animate-in fade-in slide-in-from-top-2 duration-500">
-            <p className="text-sm text-slate-500 dark:text-slate-400/80 leading-relaxed">
+          <div className="animate-in fade-in slide-in-from-top-2 duration-500 space-y-3">
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
               {chapter.story}
             </p>
             {chapter.highlight && (
-              <div className={`inline-flex items-center space-x-2 px-4 py-2 rounded-xl mt-4 ${chapter.gradient} ${chapter.borderColor} border`}>
+              <div className={`inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-xl ${chapter.gradient} ${chapter.borderColor} border`}>
                 <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60" />
                 <span className="text-[10px] font-bold tracking-wider">{chapter.highlight}</span>
               </div>
@@ -393,7 +397,7 @@ const ImageRightLayout: React.FC<{ chapter: typeof storyChapters[0]; onImageClic
     <div className="flex flex-col md:flex-row-reverse gap-8 items-center">
       {/* Image Block */}
       <div className="flex-1 relative group w-full">
-        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black/40 min-h-[260px] flex items-center justify-center">
+        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-black/40 min-h-[220px] sm:min-h-[260px] flex items-center justify-center">
           <img
             key={activeImage}
             src={activeImage}
@@ -416,11 +420,11 @@ const ImageRightLayout: React.FC<{ chapter: typeof storyChapters[0]; onImageClic
         <div className={`inline-block px-4 py-1.5 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase ${chapter.gradient} ${chapter.borderColor} border mb-4`}>
           {chapter.year}
         </div>
-        <h2 className="text-3xl md:text-4xl font-extralight text-slate-900 dark:text-white mb-2 tracking-tight">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-extralight text-slate-900 dark:text-white mb-2 tracking-tight">
           {chapter.title}
         </h2>
-        <p className="text-sm text-slate-400 dark:text-slate-500 mb-4">{chapter.subtitle}</p>
-        <p className="text-base italic text-purple-600/80 dark:text-purple-400/70 mb-6">
+        <p className="text-xs sm:text-sm text-slate-400 dark:text-slate-500 mb-4">{chapter.subtitle}</p>
+        <p className="text-sm sm:text-base italic text-purple-600/80 dark:text-purple-400/70 mb-6">
           &ldquo;{chapter.quote}&rdquo;
         </p>
         {chapter.tags && (
@@ -437,17 +441,17 @@ const ImageRightLayout: React.FC<{ chapter: typeof storyChapters[0]; onImageClic
         )}
         <button
           onClick={() => setExpanded(!expanded)}
-          className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500 hover:text-purple-500 dark:hover:text-purple-400 transition-colors mb-4 cursor-pointer"
+          className="text-[10px] font-bold uppercase tracking-[0.2em] text-purple-400 hover:text-purple-300 transition-colors mb-4 cursor-pointer bg-purple-500/10 px-3.5 py-1.5 rounded-xl border border-purple-500/20 inline-flex items-center space-x-1.5"
         >
-          {expanded ? 'Read less ↑' : 'Read the story ↓'}
+          <span>{expanded ? 'Read less ↑' : 'Read the story ↓'}</span>
         </button>
         {expanded && (
-          <div className="animate-in fade-in slide-in-from-top-2 duration-500">
-            <p className="text-sm text-slate-500 dark:text-slate-400/80 leading-relaxed">
+          <div className="animate-in fade-in slide-in-from-top-2 duration-500 space-y-3">
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
               {chapter.story}
             </p>
             {chapter.highlight && (
-              <div className={`inline-flex items-center space-x-2 px-4 py-2 rounded-xl mt-4 ${chapter.gradient} ${chapter.borderColor} border`}>
+              <div className={`inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-xl ${chapter.gradient} ${chapter.borderColor} border`}>
                 <div className="w-1.5 h-1.5 bg-current rounded-full opacity-60" />
                 <span className="text-[10px] font-bold tracking-wider">{chapter.highlight}</span>
               </div>
@@ -475,13 +479,13 @@ const TimelineConnector: React.FC = () => {
   return (
     <div ref={ref} className="relative py-4">
       {/* Vertical line */}
-      <div className="absolute left-6 md:left-1/2 md:-translate-x-[0.5px] top-0 bottom-0">
+      <div className="absolute left-3.5 sm:left-6 md:left-1/2 md:-translate-x-[0.5px] top-0 bottom-0">
         <div className={`w-[1.5px] h-full transition-all duration-1000 ${
           visible ? 'bg-gradient-to-b from-purple-500/40 via-indigo-500/30 to-purple-500/10' : 'bg-white/[0.04]'
         }`} />
       </div>
       {/* Year marker */}
-      <div className="absolute left-6 md:left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
+      <div className="absolute left-3.5 sm:left-6 md:left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
         <div className={`w-3 h-3 rounded-full border-2 transition-all duration-700 ${
           visible
             ? 'bg-purple-500 border-purple-400 shadow-[0_0_12px_rgba(168,139,250,0.5)]'
@@ -497,7 +501,7 @@ export const Journey: React.FC<JourneyProps> = ({ onNavigateToHackathons }) => {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen py-20 md:py-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
+    <div className="min-h-screen pt-28 pb-20 md:pt-36 md:pb-24 px-4 sm:px-8 md:px-16 lg:px-24 relative overflow-hidden animated-bg noise-overlay">
       <ScrollProgress />
 
       {/* Background */}
@@ -515,14 +519,14 @@ export const Journey: React.FC<JourneyProps> = ({ onNavigateToHackathons }) => {
         </div>
 
         {/* Quick Stats Grid — Clean, Balanced, and Responsive */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 my-10 reveal-up" style={{ animationDelay: '0.1s' }}>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 my-8 sm:my-10 reveal-up" style={{ animationDelay: '0.1s' }}>
           {stats.map((stat) => (
             <div
               key={stat.label}
-              className={`group p-5 card-premium rounded-2xl border border-white/5 ${stat.border} text-center transition-all duration-300 hover:scale-[1.02] flex flex-col justify-between`}
+              className={`group p-4 sm:p-5 card-premium rounded-2xl border border-white/5 ${stat.border} text-center transition-all duration-300 hover:scale-[1.02] flex flex-col justify-between`}
             >
               <div>
-                <div className={`text-3xl lg:text-4xl font-light font-mono tracking-tight bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-1`}>
+                <div className={`text-2xl sm:text-3xl lg:text-4xl font-light font-mono tracking-tight bg-gradient-to-r ${stat.gradient} bg-clip-text text-transparent mb-1`}>
                   {stat.value}
                 </div>
                 <div className="text-[10px] font-mono font-bold uppercase tracking-[0.15em] text-white">
@@ -545,20 +549,20 @@ export const Journey: React.FC<JourneyProps> = ({ onNavigateToHackathons }) => {
 
               {/* Chapter card */}
               <div
-                className="reveal-up pl-12 md:pl-16 lg:pl-20"
+                className="reveal-up pl-7 sm:pl-12 md:pl-16 lg:pl-20"
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
-                <div className="glass-card rounded-2xl hover:border-purple-500/15 transition-all duration-500">
+                <div className="glass-card rounded-2xl hover:border-purple-500/15 transition-all duration-500 overflow-hidden">
                   {chapter.layout === 'hero' && (
                     <HeroLayout chapter={chapter} onImageClick={setLightboxSrc} />
                   )}
                   {chapter.layout === 'image-left' && (
-                    <div className="p-8 md:p-10">
+                    <div className="p-5 sm:p-8 md:p-10">
                       <ImageLeftLayout chapter={chapter} onImageClick={setLightboxSrc} />
                     </div>
                   )}
                   {chapter.layout === 'image-right' && (
-                    <div className="p-8 md:p-10">
+                    <div className="p-5 sm:p-8 md:p-10">
                       <ImageRightLayout chapter={chapter} onImageClick={setLightboxSrc} />
                     </div>
                   )}
