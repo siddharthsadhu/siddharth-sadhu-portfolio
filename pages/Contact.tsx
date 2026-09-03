@@ -255,7 +255,6 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
 
   return (
     <div
-      style={{ perspective: 1000 }}
       className="w-full select-none"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -263,16 +262,15 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
       <div
         ref={cardRef}
         style={{
-          transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg) translateZ(10px)`,
-          transition: 'transform 0.15s ease-out',
-          transformStyle: 'preserve-3d'
+          transform: rotate.x !== 0 || rotate.y !== 0 ? `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)` : 'none',
+          transition: 'transform 0.15s ease-out'
         }}
-        className="relative overflow-hidden rounded-3xl p-5 sm:p-7 md:p-8 card-premium border border-white/10 hover:border-purple-500/50 shadow-2xl bg-gradient-to-br from-slate-900/90 via-black/80 to-purple-950/30 backdrop-blur-2xl group cursor-pointer"
+        className="relative overflow-hidden rounded-2xl sm:rounded-3xl p-5 sm:p-7 md:p-8 card-premium border border-white/10 hover:border-purple-500/50 shadow-2xl bg-gradient-to-br from-slate-900/90 via-black/80 to-purple-950/30 backdrop-blur-2xl group cursor-pointer w-full"
         onClick={onCopy}
       >
         {/* Dynamic Hologram Specular Glare */}
         <div
-          className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-3xl z-30"
+          className="absolute inset-0 pointer-events-none transition-opacity duration-300 rounded-2xl sm:rounded-3xl z-30"
           style={{
             background: `radial-gradient(circle at ${glare.x}% ${glare.y}%, rgba(216, 180, 254, ${glare.opacity}), transparent 60%)`
           }}
@@ -282,13 +280,13 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
 
         {/* Header Badges with Live IST Clock */}
-        <div className="flex items-center justify-between gap-3 mb-6 relative z-20" style={{ transform: 'translateZ(20px)' }}>
+        <div className="flex items-center justify-between gap-3 mb-5 sm:mb-6 relative z-20 w-full">
           <div className="flex items-center space-x-2.5">
             <div className="relative flex items-center justify-center">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
               <span className="absolute w-4 h-4 rounded-full bg-emerald-400/40 animate-ping" />
             </div>
-            <span className="text-[9px] font-mono font-bold uppercase tracking-[0.25em] text-emerald-400">
+            <span className="text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-emerald-400">
               Live Signal • {currentTime || 'IST'}
             </span>
           </div>
@@ -299,7 +297,7 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
         </div>
 
         {/* Core Identity Details */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:space-x-5 mb-6 relative z-20" style={{ transform: 'translateZ(30px)' }}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:space-x-5 mb-5 sm:mb-6 relative z-20 w-full">
           <div className="relative group/avatar shrink-0">
             <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden border-2 border-purple-400/40 p-0.5 bg-gradient-to-br from-purple-500 to-indigo-500 shadow-lg shadow-purple-500/20">
               <img
@@ -330,7 +328,7 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
         </div>
 
         {/* Action Button Strip */}
-        <div className="p-3.5 sm:p-4 rounded-2xl bg-black/60 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-20 hover:border-purple-500/30 transition-colors" style={{ transform: 'translateZ(25px)' }}>
+        <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-black/60 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 relative z-20 hover:border-purple-500/30 transition-colors w-full">
           <div className="min-w-0 w-full">
             <span className="text-[8px] font-mono font-bold uppercase tracking-widest text-slate-500 block mb-0.5">
               Direct Frequency
@@ -352,7 +350,7 @@ const HolographicIDCard: React.FC<{ email: string; onCopy: () => void; copied: b
         </div>
 
         {/* Card Footer Holographic Watermark */}
-        <div className="flex flex-wrap items-center justify-between gap-2 mt-5 pt-4 border-t border-white/5 text-[8px] sm:text-[9px] font-mono text-slate-500 relative z-20" style={{ transform: 'translateZ(15px)' }}>
+        <div className="flex flex-wrap items-center justify-between gap-2 mt-5 pt-4 border-t border-white/5 text-[8px] sm:text-[9px] font-mono text-slate-500 relative z-20 w-full">
           <span>AHMEDABAD, IN (IST)</span>
           <span className="text-purple-400/70">REF: SID-2026-BUILD</span>
           <span>GLOBAL REMOTE READY</span>
@@ -599,17 +597,17 @@ export const Contact: React.FC = () => {
             </div>
 
             {/* Collaboration Intent Selector */}
-            <div className="card-premium p-7 md:p-8 rounded-3xl border border-white/[0.07] space-y-6 reveal-up" style={{ animationDelay: '0.2s' }}>
+            <div className="card-premium p-5 sm:p-7 md:p-8 rounded-2xl sm:rounded-3xl border border-white/[0.07] space-y-6 reveal-up w-full">
               <div className="flex items-center justify-between">
                 <div>
-                  <h4 className="text-lg font-light text-white tracking-tight">
+                  <h4 className="text-base sm:text-lg font-light text-white tracking-tight">
                     Select Collaboration Mode
                   </h4>
-                  <p className="text-xs font-mono text-slate-400 mt-0.5">
+                  <p className="text-[11px] sm:text-xs font-mono text-slate-400 mt-0.5">
                     Click any mode to automatically format your personalized message.
                   </p>
                 </div>
-                <span className="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20">
+                <span className="text-[9px] sm:text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-full border border-purple-500/20 shrink-0">
                   Instant Dispatch
                 </span>
               </div>
@@ -623,7 +621,7 @@ export const Contact: React.FC = () => {
                       setSelectedIntent(item.id);
                       setCustomMessage(item.template);
                     }}
-                    className={`px-3.5 py-2 rounded-xl text-[10px] font-mono transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                    className={`px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl text-[10px] font-mono transition-all duration-300 flex items-center gap-2 cursor-pointer ${
                       selectedIntent === item.id
                         ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg shadow-purple-500/25 font-bold border border-purple-400/30'
                         : 'bg-black/40 text-slate-300 hover:text-white border border-white/5 hover:border-white/15'
@@ -635,10 +633,10 @@ export const Contact: React.FC = () => {
               </div>
 
               {/* Live Dispatch Preview Box */}
-              <div className="p-5 rounded-2xl bg-black/60 border border-white/5 space-y-4">
-                <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
-                  <span>SUBJECT: <strong className="text-purple-300">{currentIntentObj.subject}</strong></span>
-                  <span className="text-emerald-400 flex items-center gap-1.5">
+              <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-black/60 border border-white/5 space-y-4 w-full">
+                <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono text-slate-400">
+                  <span>SUBJECT: <strong className="text-purple-300 break-all">{currentIntentObj.subject}</strong></span>
+                  <span className="text-emerald-400 flex items-center gap-1.5 shrink-0">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     READY
                   </span>
@@ -660,14 +658,14 @@ export const Contact: React.FC = () => {
                   />
                 </div>
 
-                <div className="flex items-center justify-between pt-2">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
                   <span className="text-[10px] font-mono text-slate-500">
                     Dispatches via default mail client
                   </span>
                   <MagneticButton
                     onClick={handleTriggerEmail}
                     strength={0.2}
-                    className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-[10px] font-mono font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-purple-500/25 flex items-center gap-2 btn-shimmer cursor-pointer"
+                    className="w-full sm:w-auto justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-[10px] font-mono font-bold uppercase tracking-wider rounded-xl shadow-lg shadow-purple-500/25 flex items-center gap-2 btn-shimmer cursor-pointer text-center"
                   >
                     <span>Transmit Message</span>
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -680,25 +678,28 @@ export const Contact: React.FC = () => {
           </div>
 
           {/* ── RIGHT COLUMN: Social Ecosystem & CV Download ── */}
-          <div className="space-y-6">
+          <div className="space-y-6 w-full">
             {/* Technical CV Download Spotlight */}
-            <div className="reveal-up" style={{ animationDelay: '0.2s' }}>
-              <div className="card-premium p-6 rounded-3xl border border-white/[0.08] hover:border-purple-500/40 transition-all group">
-                <div className="flex items-center space-x-5">
-                  <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 text-purple-300 shadow-md">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
-                  <div className="flex-grow">
-                    <h4 className="text-base font-light text-white tracking-tight">
-                      Technical Curriculum Vitae
-                    </h4>
+            <div className="reveal-up w-full" style={{ animationDelay: '0.2s' }}>
+              <div className="card-premium p-4 sm:p-6 rounded-2xl sm:rounded-3xl border border-white/[0.08] hover:border-purple-500/40 transition-all group w-full">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 w-full">
+                  <div className="flex items-center space-x-4 min-w-0">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-500/10 border border-purple-500/30 text-purple-300 shadow-md shrink-0">
+                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.75} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0">
+                      <h4 className="text-sm sm:text-base font-light text-white tracking-tight truncate">
+                        Technical Curriculum Vitae
+                      </h4>
+                      <p className="text-[10px] font-mono text-purple-300/80 mt-0.5">Updated 2026 Edition</p>
+                    </div>
                   </div>
                   <a
                     href="/resume.pdf"
                     download
-                    className="px-5 py-2.5 bg-white text-slate-950 hover:bg-slate-200 text-[10px] font-mono font-bold uppercase tracking-widest rounded-xl transition-all shadow-md shadow-white/10 hover:scale-105 inline-block"
+                    className="w-full sm:w-auto text-center px-5 py-2.5 bg-white text-slate-950 hover:bg-slate-200 text-[10px] font-mono font-bold uppercase tracking-widest rounded-xl transition-all shadow-md shadow-white/10 hover:scale-105 inline-block shrink-0"
                   >
                     Download
                   </a>
