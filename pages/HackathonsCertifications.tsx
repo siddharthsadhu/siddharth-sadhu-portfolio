@@ -282,9 +282,12 @@ export const HackathonsCertifications: React.FC = () => {
   ];
 
   // Filter achievements chronologically
-  const filteredAchievements = allAchievements.filter(
-    (item) => activeFilter === 'all' || item.category === activeFilter
-  );
+  const filteredAchievements = allAchievements.filter((item) => {
+    if (activeFilter === 'all') return true;
+    if (activeFilter === 'certifications' && (item.category === 'certifications' || item.id === 'gseb-ssc')) return true;
+    if (activeFilter === 'academic' && (item.category === 'academic' || item.id === 'gseb-ssc')) return true;
+    return item.category === activeFilter;
+  });
 
   const years = Array.from(new Set(filteredAchievements.map((item) => item.year))).sort(
     (a, b) => parseInt(b) - parseInt(a)
