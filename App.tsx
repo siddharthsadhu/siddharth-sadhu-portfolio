@@ -78,8 +78,8 @@ const App: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const pageTitle = pageDisplayNames[currentPage] || 'Home';
     document.title = currentPage === Page.Home
-      ? 'Siddharth Sadhu | Architectural Engineer'
-      : `${pageTitle} | Siddharth Sadhu`;
+      ? 'Hey there! • I am Siddharth Sadhu'
+      : `${pageTitle} • I am Siddharth Sadhu`;
   }, [currentPage]);
 
   // Initial history state
