@@ -22,7 +22,7 @@
 - First in family to pursue tech/engineering
 
 ### Experience
-- **AI/ML & Software Engineering Intern** — Vicharanam Labs (VLEID), IIT Ropar (May–July 2026, Remote)
+- **AI/ML & Software Engineering Intern (3 Months)** — Vicharanashala (VLEID), IIT Ropar & ANNAM.AI (May–August 2026, Remote — Certificate Credential)
 - **Web Development Intern** — Webial Technology Pvt. Ltd. (Sep 2022, Vallabh Vidyanagar)
 
 ### Key Projects

@@ -61,6 +61,8 @@ export interface Experience {
   stats: { label: string; value: string }[];
   impactMetrics: string[];
   techStack: string[];
+  certificateUrl?: string;
+  certificateLabel?: string;
   narrative: {
     context: string;
     decisions: string;

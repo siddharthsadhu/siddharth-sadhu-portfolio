@@ -122,13 +122,13 @@ export const HACKATHONS_DATA: Hackathon[] = [
 export const CERTIFICATIONS_DATA: Certification[] = [
   {
     id: "vleid-ai-research",
-    name: "AI & Learning Systems Engineering",
-    platform: "Vicharanam Labs (VLEID) / IIT Ropar",
-    issueDate: "July 2026",
-    credentialId: "VLEID-SUMMER-2026-69",
-    verificationUrl: "https://github.com/vicharanashala/pybe/pull/69",
-    skills: ["CKLIS Architecture", "Server-Sent Events (SSE)", "Prompt Chains", "TypeScript", "Node.js"],
-    description: "Open source research contribution validating scenario & case study generation pipelines in PyBe, CKLIS pedagogical reasoning, and merged PR #69.",
+    name: "AI & Learning Systems Engineering — VINS Online Summer Internship",
+    platform: "Vicharanashala Lab for Education Design, IIT Ropar & ANNAM.AI",
+    issueDate: "August 2026",
+    credentialId: "26VINS08066-7C4M",
+    verificationUrl: "/certificates/vleid-iit-ropar-internship.pdf",
+    skills: ["CKLIS Architecture", "Server-Sent Events (SSE)", "Prompt Chains", "TypeScript", "Node.js", "MERN", "Data Science"],
+    description: "Awarded 'Legend Tier' (17/25 Spurti) 3-Month Summer Research Internship Certificate. Served as Lead Technical Owner for PyBe core engine stack, architecting the 7-Step Case Study Generator, 4-Pass SSE Streaming Pipeline, and merged PR #69.",
     level: "Advanced"
   },
   {
@@ -270,10 +270,10 @@ export const PROJECTS_DATA: Project[] = [
     oneLiner: "Flipping CS education from syntax memorization to concept-first reasoning powered by multi-stage CKLIS AI workflows and real-time SSE streaming.",
     problem: "Traditional programming education traps students in syntax memorization before they understand systems logic. Novices experience severe cognitive overload (Sweller's Cognitive Load Theory) when forced to learn language syntax and computational problem-solving simultaneously.",
     constraint: "AI-generated multi-stage educational scaffolding introduced substantial token latency, requiring instant response streaming to maintain learner engagement.",
-    outcome: "Architected core subsystems of the Code Katha Learning Intelligence System (CKLIS), real-time SSE streaming, and contributed an approved production-merged Pull Request (PR #69).",
+    outcome: "Lead Technical Owner for PyBe core engine stack: architected the Scenario-Based Case Study Pipeline & Execution Engine, 7-Step Case Study Generator, 4-Pass SSE Streaming Pipeline, Canonical Story Grounding Engine, and cklisOrchestrator.ts (Merged PR #69).",
     stack: ["React.js", "TypeScript", "Node.js & Express", "MongoDB", "CKLIS Engine", "Server-Sent Events (SSE)"],
-    role: "AI & Full-Stack Software Engineering Intern",
-    timeline: "May 2026 – July 2026",
+    role: "AI & Full-Stack Software Engineering Intern (Lead Engine Stack Owner)",
+    timeline: "May 25, 2026 – August 18, 2026 (3 Months)",
     image: "/images/journey/pybe-ui-studio.png",
     architectureImage: "/images/journey/pybe-architecture.jpg",
     liveDemoUrl: "https://github.com/siddharthsadhu/PyBe",
@@ -515,26 +515,29 @@ export const PROJECTS_DATA: Project[] = [
 
 export const EXPERIENCE_DATA: Experience[] = [
   {
-    role: "AI & Full-Stack Software Engineering Intern",
-    company: "Vicharanam Labs (VLEID), IIT Ropar",
+    role: "AI & Full-Stack Software Engineering Intern (Lead Engine Stack Owner)",
+    company: "Vicharanashala (VLEID), IIT Ropar & ANNAM.AI",
     location: "Remote (IIT Ropar Collaboration)",
-    dates: "May 2026 — July 2026",
+    dates: "May 25, 2026 — August 18, 2026 (3 Months)",
     stats: [
+      { label: "Honor", value: "Legend Tier" },
       { label: "Merged PR", value: "PR #69" },
-      { label: "Latency", value: "<100ms" },
-      { label: "System", value: "CKLIS" }
+      { label: "Attendance", value: "5067 min" },
+      { label: "Coursework", value: "100%" }
     ],
+    certificateUrl: "/certificates/vleid-iit-ropar-internship.pdf",
+    certificateLabel: "Credential: 26VINS08066-7C4M",
     impactMetrics: [
-      "Engineered core subsystems of PyBe — an AI-powered scenario-to-code learning engine based on CKLIS multi-stage reasoning.",
-      "Architected real-time Server-Sent Events (SSE) streaming engine, delivering sub-100ms perceived token latency to learners.",
-      "Authored and successfully merged production Pull Request #69 into the upstream core codebase after rigorous code reviews.",
-      "Participated in daily technical standups and systems architecture sessions with distinguished mentors including Prof. Meenakshi D'Souza."
+      "Appointed Lead Technical Owner of PyBe's core engine stack: architected, built, and delivered the complete Scenario-Based Case Study Pipeline & Execution Engine.",
+      "Engineered the 7-Step Case Study Generator, 4-Pass Token Streaming Pipeline, and Canonical Story Grounding Engine within cklisOrchestrator.ts.",
+      "Implemented Multi-Key Rate-Limit Cooldown infrastructure and authored production Pull Request #69 merged upstream into PyBe core.",
+      "Achieved Spurti Level 17/25 ('Legend Tier') with 0 Bradford Score (5,067 mins logged vs 3,600 target), 100% coursework completion (AI & MERN), and 50/50 Data Science peer endorsements (+5155.08 SPA score)."
     ],
-    techStack: ["TypeScript", "React.js", "Node.js", "Express.js", "MongoDB", "SSE", "AI Prompt Engineering"],
+    techStack: ["TypeScript", "React.js", "Node.js", "Express.js", "MongoDB", "SSE", "AI Prompt Engineering", "Data Science"],
     narrative: {
-      context: "Vicharanam Labs (VLEID) collaborates with IIT Ropar on next-generation intelligent educational computing systems.",
-      decisions: "Adopted Server-Sent Events (SSE) over WebSockets for lightweight unidirectional token streaming with automatic reconnection.",
-      learning: "True software engineering requires bridging learning science with production-grade reliability and low latency."
+      context: "Hosted by Vicharanashala Lab for Education Design at IIT Ropar in partnership with ANNAM.AI, focusing on intelligent educational computing systems.",
+      decisions: "Architected a 4-Pass SSE streaming pipeline and cklisOrchestrator.ts with multi-key rate-limit cooldown for resilient real-time reasoning feedback.",
+      learning: "Leading the core engine stack alongside IIT Ropar faculty coordinators reinforced how disciplined architectural ownership turns learning theory into production-grade systems."
     }
   },
   {
